@@ -16,10 +16,10 @@ app.use(cors());
 app.use(express.json());
 
 // --- Routes ---
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./routes/auth')); // i'll use api/users for this, but i've kept it because u added it monther.
 
 // added routes for user management, transactions, categories, and AI suggestions
-app.use('/api/users', require('./routes/userRoutes'));           // optional if separate from /auth
+app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/suggestions', require('./routes/suggestionRoutes'));
