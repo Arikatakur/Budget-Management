@@ -1,12 +1,12 @@
-// server.js
+// server/server.js
 
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./config/database'); // Import the sequelize instance
+const sequelize = require('./config/database'); // Sequelize instance
 
 const app = express();
 
-// --- Test Database Connection ---
+// --- Test DB Connection ---
 sequelize.authenticate()
   .then(() => console.log('MySQL Database connected...'))
   .catch(err => console.log('Error: ' + err));
@@ -18,9 +18,14 @@ app.use(express.json());
 // --- Routes ---
 app.use('/api/auth', require('./routes/auth'));
 
-// --- Sync Database ---
-// This creates the table if it doesn't exist. For production, you'd use migrations.
+// added routes for user management, transactions, categories, and AI suggestions
+app.use('/api/users', require('./routes/userRoutes'));           // optional if separate from /auth
+app.use('/api/transactions', require('./routes/transactionRoutes'));
+app.use('/api/categories', require('./routes/categoryRoutes'));
+app.use('/api/suggestions', require('./routes/suggestionRoutes'));
+
+// --- Sync Models & Start Server ---
 sequelize.sync().then(() => {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 });
