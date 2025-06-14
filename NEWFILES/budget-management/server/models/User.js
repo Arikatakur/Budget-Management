@@ -26,7 +26,7 @@ const User = sequelize.define('User', {
   },
   averageIncome: {
     type: DataTypes.FLOAT,
-    defaultValue: 0,
+    allowNull: true,
   }
 }, {
   hooks: {
