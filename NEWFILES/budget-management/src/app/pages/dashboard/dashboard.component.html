@@ -1,1 +1,19 @@
-<p>dashboard works!</p>
+<h2>Welcome, {{ userName }}!</h2>
+
+<div>
+  <h3>This Month’s Summary</h3>
+  <p><strong>Income:</strong> ${{ income }}</p>
+  <p><strong>Expenses:</strong> ${{ expenses }}</p>
+  <p><strong>Balance:</strong> ${{ balance }}</p>
+  <p><strong>Average Monthly Income:</strong> ${{ averageIncome }}</p>
+</div>
+
+<hr>
+
+<div style="max-width: 400px;">
+  <h4>Income vs. Expenses</h4>
+  <canvas baseChart
+          [data]="pieChartData"
+          [type]="pieChartType">
+  </canvas>
+</div>
