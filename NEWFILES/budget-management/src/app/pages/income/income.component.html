@@ -1,1 +1,24 @@
-<p>income works!</p>
+<div class="income-container">
+  <h2>Enter Monthly Income (Last 5 Months)</h2>
+
+  <form (ngSubmit)="calculateAverage()" (keydown.enter)="$event.preventDefault()">
+    <div *ngFor="let salary of salaries; let i = index" class="input-row">
+      <label>
+        {{ getMonthLabel(i) }}:
+        <input
+          type="number"
+          [(ngModel)]="salaries[i]"
+          name="salary{{ i }}"
+          placeholder="Enter income"
+          required
+        />
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn">Calculate Average</button>
+  </form>
+
+  <div *ngIf="averageIncome !== null">
+    <h3>Average Monthly Income: <strong>{{ averageIncome | currency }}</strong></h3>
+  </div>
+</div>
