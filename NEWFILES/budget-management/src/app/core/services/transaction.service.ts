@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Transaction } from '../models/transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +10,21 @@ export class TransactionService {
 
   constructor(private http: HttpClient) {}
 
-  getTransactions(): Observable<Transaction[]> {
+  getTransactions(): Observable<any[]> {
     const userId = localStorage.getItem('userId');
     if (!userId) {
       return of([]);
     }
     const urlWithUserId = `${this.apiUrl}?userId=${userId}`;
-    return this.http.get<Transaction[]>(urlWithUserId);
+    return this.http.get<any[]>(urlWithUserId);
   }
 
-  createTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.apiUrl, transaction);
+  createTransaction(transaction: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, transaction);
   }
 
-  updateTransaction(id: string, transaction: Transaction): Observable<Transaction> {
-    return this.http.put<Transaction>(`${this.apiUrl}/${id}`, transaction);
+  updateTransaction(id: string, transaction: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, transaction);
   }
 
   deleteTransaction(id: string): Observable<any> {

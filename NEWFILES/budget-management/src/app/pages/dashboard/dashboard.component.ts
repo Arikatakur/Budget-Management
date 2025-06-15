@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from '../../core/services/transaction.service';
-import { Transaction } from '../../core/models/transaction.model';
 import { UserService } from '../../core/services/user.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartType, ChartData } from 'chart.js';
@@ -39,7 +38,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.transactionService.getTransactions().subscribe((transactions: Transaction[]) => {
+    this.transactionService.getTransactions().subscribe((transactions: any[]) => {
       const now = new Date();
       const thisMonthTxns = transactions.filter(txn => {
         const d = new Date(txn.date);
