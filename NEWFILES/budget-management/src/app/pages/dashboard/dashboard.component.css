@@ -1,34 +1,124 @@
 :host {
-  display: block;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
+    display: block; /* Ensures the host element takes up space */
+    padding: 2rem; /* Consistent padding around this dashboard content */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font choice */
+    background-color: #f0f2f5; /* Light, modern background for the dashboard area */
+    color: #333; /* Dark text for readability */
+    line-height: 1.6; /* Improves paragraph readability */
+    /* If this :host element represents the *entire* main content area,
+       its background will show. If it's a smaller component within a
+       larger page, its background might be overridden by the parent. */
 }
 
-h2 {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  color: #2c3e50;
+/* Section Containers (e.g., "This Month's Summary", Chart) */
+/* We'll use a class for card-like sections for better visual separation */
+.dashboard-section-card { /* New class for wrapping sections */
+    background-color: #ffffff; /* White background for individual content blocks */
+    border-radius: 12px; /* Nicely rounded corners for cards */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Soft, prominent shadow for depth */
+    padding: 2.5rem; /* Generous padding inside each card */
+    margin-bottom: 2rem; /* Space between each content card */
+    margin-left: auto; /* Center cards if they have max-width */
+    margin-right: auto;
+    max-width: 800px; /* Optional: Limit width for better readability on large screens */
+}
+
+/* Welcome Message */
+h2 { /* Targets "Welcome, {{ userName }}!" */
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem; /* Slightly larger for main welcome heading */
+    color: #2c3e50; /* Primary heading color */
+    font-weight: 700; /* Bolder for prominence */
+    /* text-align: center; Uncomment if you want the welcome message centered within its card */
+}
+
+/* This Month's Summary Title */
+.summary-title { /* Add this class to your <h3> for "This Month’s Summary" */
+    font-size: 1.8rem; /* Slightly smaller than welcome, but prominent */
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
 }
 
 p {
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
+    font-size: 1.15rem; /* Slightly larger font for financial figures */
+    margin: 0.8rem 0; /* More vertical space for readability */
+    color: #555; /* Softer paragraph text color */
 }
 
 strong {
-  font-weight: 600;
-  color: #222;
+    font-weight: 700; /* Bolder strong text */
+    color: #1a1a1a; /* Darker for emphasis */
+}
+
+/* Specific styling for income/expense values for visual cues */
+.income-value {
+    color: #28a745; /* Green for positive income */
+    font-weight: bold;
+}
+
+.expense-value {
+    color: #dc3545; /* Red for negative expenses */
+    font-weight: bold;
+}
+
+.balance-value {
+    color: #007bff; /* Blue for balance, assuming positive */
+    font-weight: bold;
+}
+
+hr {
+    border: none; /* Remove default border */
+    border-top: 1px solid #e0e0e0; /* Lighter, subtle separator line */
+    margin: 3rem auto; /* More vertical space, centered */
+    max-width: 700px; /* Make the HR line shorter than the full width */
+}
+
+/* Chart Container & Title */
+.chart-card { /* New class for the chart's container div */
+    background: #ffffff;
+    padding: 2.5rem; /* Consistent padding with other cards */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    margin: 2rem auto; /* Centered, consistent margin */
+    max-width: 450px; /* Keeping the chart container slightly narrower */
+    display: flex; /* Use flexbox for internal alignment */
+    flex-direction: column; /* Stack title and canvas */
+    align-items: center; /* Center content horizontally within the card */
+}
+
+.chart-title { /* Add this class to your <h4> for "Income vs. Expenses" */
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem; /* Space between title and chart */
+    font-weight: 600;
+    text-align: center; /* Ensure chart title is centered */
+    width: 100%; /* Make title span full width of card */
 }
 
 canvas {
-  max-width: 400px;
-  margin: 2rem auto;
-  display: block;
-  border: 1px solid #ddd;
-  background: #fff;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    max-width: 100%; /* Ensure canvas doesn't overflow its parent */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra space below canvas */
+    /* Remove individual border/background/padding here if parent .chart-card handles it */
+}
+
+/* Optional: Add basic responsive adjustments */
+@media (max-width: 768px) {
+    :host {
+        padding: 1rem; /* Less padding on smaller screens */
+    }
+    .dashboard-section-card, .chart-card {
+        padding: 1.5rem; /* Less padding inside cards on smaller screens */
+        margin-bottom: 1.5rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .summary-title, .chart-title {
+        font-size: 1.5rem;
+    }
+    p {
+        font-size: 1rem;
+    }
 }

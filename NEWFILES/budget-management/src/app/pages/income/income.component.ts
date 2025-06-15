@@ -13,8 +13,11 @@ import { UserService } from '../../core/services/user.service';
 export class IncomeComponent {
   salaries: number[] = Array(5).fill(0);
   averageIncome: number = 0;
+  monthLabels: string[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.generateMonthLabels();
+  }
 
   calculateAverage(): void {
     const total = this.salaries.reduce((sum, salary) => sum + (Number(salary) || 0), 0);
@@ -30,16 +33,17 @@ export class IncomeComponent {
       });
     }
   }
-  getMonthLabel(index: number): string {
-  const today = new Date();
-  const months = [];
-
-  for (let i = 4; i >= 0; i--) {
-    const date = new Date(today.getFullYear(), today.getMonth() - i);
-    months.push(date.toLocaleString('default', { month: 'long' }));
+  private generateMonthLabels(): void {
+    const today = new Date();
+    this.monthLabels = [];
+    for (let i = 4; i >= 0; i--) {
+      const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      this.monthLabels.push(date.toLocaleString('default', { month: 'long' }));
+    }
   }
 
-  return months[index];
-}
+  getMonthLabel(index: number): string {
+    return this.monthLabels[index] || '';
+  }
 
 }

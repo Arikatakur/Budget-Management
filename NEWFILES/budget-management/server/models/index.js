@@ -1,14 +1,25 @@
-const User = require('./User');
-const Transaction = require('./Transaction');
-const Category = require('./Category');
-const AISuggestion = require('./AISuggestion');
+// server/models/index.js
+const sequelize    = require('../config/database');   
 
-// Relationships
+const User        = require('./User');
+const Transaction = require('./Transaction');
+const Category    = require('./Category');
+const AISuggestion= require('./AISuggestion');
+
+// Define associations
 User.hasMany(Transaction, { foreignKey: 'userId' });
-Transaction.belongsTo(User);
+Transaction.belongsTo(User, { foreignKey: 'userId' });
 
 User.hasMany(Category, { foreignKey: 'userId' });
-Category.belongsTo(User);
+Category.belongsTo(User, { foreignKey: 'userId' });
 
 User.hasMany(AISuggestion, { foreignKey: 'userId' });
-AISuggestion.belongsTo(User);
+AISuggestion.belongsTo(User, { foreignKey: 'userId' });
+
+module.exports = {
+  sequelize,
+  User,
+  Transaction,
+  Category,
+  AISuggestion
+};

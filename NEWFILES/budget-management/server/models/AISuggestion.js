@@ -13,7 +13,16 @@ const AISuggestion = sequelize.define('AISuggestion', {
   status: {
     type: DataTypes.STRING,
     defaultValue: 'new', // or 'viewed'
-  }
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Users',
+      key: 'id',
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+  },
 });
 
 module.exports = AISuggestion;

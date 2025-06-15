@@ -11,7 +11,8 @@ import { CurrencyPipe } from '@angular/common';
   selector: 'app-dashboard',
   standalone: true,
   imports: [NgChartsModule, CommonModule],
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   userName = 'Saleem'; // Replace with real user info from JWT/localStorage later

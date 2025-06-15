@@ -1,24 +1,45 @@
 <div class="income-container">
-  <h2>Enter Monthly Income (Last 5 Months)</h2>
 
-  <form (ngSubmit)="calculateAverage()" (keydown.enter)="$event.preventDefault()">
-    <div *ngFor="let salary of salaries; let i = index" class="input-row">
-      <label>
-        {{ getMonthLabel(i) }}:
-        <input
-          type="number"
-          [(ngModel)]="salaries[i]"
-          name="salary{{ i }}"
-          placeholder="Enter income"
-          required
-        />
-      </label>
+    <div class="income-header">
+        <h2>Income Calculator</h2>
+        <p>Calculate your average monthly earnings.</p>
     </div>
 
-    <button type="submit" class="submit-btn">Calculate Average</button>
-  </form>
+    <form (ngSubmit)="calculateAverage()">
+        <fieldset class="income-fieldset"> <legend class="fieldset-legend">Monthly Income (Last 5 Months)</legend>
 
-  <div *ngIf="averageIncome !== null">
-    <h3>Average Monthly Income: <strong>{{ averageIncome | currency }}</strong></h3>
-  </div>
+            <div class="input-row">
+                <label for="salary0">Income for {{ getMonthLabel(0) }}:</label>
+                <input type="number" id="salary0" name="salary0" [(ngModel)]="salaries[0]" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+                <label for="salary1">Income for {{ getMonthLabel(1) }}:</label>
+                <input type="number" id="salary1" name="salary1" [(ngModel)]="salaries[1]" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+                <label for="salary2">Income for {{ getMonthLabel(2) }}:</label>
+                <input type="number" id="salary2" name="salary2" [(ngModel)]="salaries[2]" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+                <label for="salary3">Income for {{ getMonthLabel(3) }}:</label>
+                <input type="number" id="salary3" name="salary3" [(ngModel)]="salaries[3]" min="0" step="any" required />
+            </div>
+
+            <div class="input-row">
+                <label for="salary4">Income for {{ getMonthLabel(4) }}:</label>
+                <input type="number" id="salary4" name="salary4" [(ngModel)]="salaries[4]" min="0" step="any" required />
+            </div>
+
+        </fieldset>
+
+        <button type="submit" class="submit-btn">Calculate Average</button>
+    </form>
+
+    <div class="income-result" *ngIf="averageIncome !== null && averageIncome !== 0"> <h3>Your Average Monthly Income Is:</h3>
+        <p>{{ averageIncome | currency:'USD':'symbol':'1.2-2' }}</p>
+    </div>
+
 </div>

@@ -1,41 +1,171 @@
+/* Global styles for the entire page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A nice modern sans-serif font */
+    background-color: #f0f2f5; /* Light background for the page */
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Make sure body takes full viewport height */
+    color: #333; /* Default text color */
+}
+
+/* Main container for the income calculator form */
 .income-container {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
+    max-width: 420px; /* Constrain width for a compact form */
+    margin: 2.5rem auto; /* Top/bottom margin, auto left/right for centering */
+    padding: 0; /* Remove padding here as .income-header and content will have their own */
+    border-radius: 14px;
+    background: #ffffff; /* White background for the main card body */
+    box-shadow: 0 4px 25px rgba(44, 62, 80, 0.15); /* Slightly stronger, more defined shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretch children to fill width */
+    overflow: hidden; /* Ensures rounded corners apply to children */
 }
 
+/* Header section of the calculator card */
+.income-header {
+    background: #515151; 
+    color: #fff;
+    padding: 1.8rem 1rem 1.2rem 1rem; /* Adjusted padding */
+    text-align: center;
+    /* border-radius: 14px 14px 0 0; Removed as overflow: hidden on parent handles it */
+    margin-bottom: 20px; /* Remove margin-bottom as content will have padding */
+}
+
+.income-header h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2.2rem; /* Slightly larger heading */
+    font-weight: 700;
+    line-height: 1.2; /* Better line height for titles */
+}
+
+.income-header p {
+    margin: 10px;
+    font-size: 1.05rem; /* Slightly larger description */
+    color: #dbeafe; /* Lighter blue for description */
+}
+
+/* Styling for the form's fieldset and legend */
+.income-fieldset {
+    border: none; /* Remove default fieldset border */
+    padding: 2rem 1.5rem 1.5rem 1.5rem; /* Padding for the content inside the card */
+    margin: 0; /* Remove default margin */
+}
+
+.fieldset-legend {
+    font-size: 1.3rem; /* Larger, more prominent legend */
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center; /* Center the legend text */
+    display: block; /* Ensures it takes full width for margin */
+    width: 100%; /* For margin-bottom to work reliably */
+}
+
+/* Individual input rows (label and input) */
 .input-row {
-  margin-bottom: 10px;
-}
-
-input {
-  width: 100%;
-  padding: 5px;
-}
-.income-container {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1rem;
-  border-radius: 8px;
-  background: #f9f9f9;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.input-row {
-  margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* More space between input fields */
+    display: flex; /* Use flexbox for label and input alignment */
+    justify-content: center;
 }
 
 .input-row label {
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 0.5rem; /* Space between label and input */
+    color: #1e293b;
+    display: block; /* Make label a block element to push input to next line */
+    font-size: 1rem;
 }
 
+.input-row input[type="number"] {
+    width: 100%;
+    padding: 0.8rem 1rem; /* More padding for better clickability/touch */
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px; /* Slightly more rounded inputs */
+    font-size: 1.15rem; /* Larger text inside input */
+    background: #fff;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.input-row input[type="number"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); /* More prominent focus shadow */
+    outline: none; /* Remove default outline */
+}
+
+/* Submit button */
 .submit-btn {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
+    width: calc(100% - 3rem); /* Adjust width to account for .income-fieldset padding */
+    background:#2563eb;
+    color: #fff;
+    font-weight: 700;
+    padding: 1rem; /* More padding for a larger button */
+    border: none;
+    border-radius: 8px; /* Consistent border-radius with inputs */
+    font-size: 1.15rem; /* Larger font for button text */
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15); /* More visible shadow */
+    margin: 1rem 1.5rem 1.5rem 1.5rem; /* Align with fieldset padding, add bottom margin */
+    align-self: center; /* Ensures button centers if income-container is flex column */
+}
+
+.submit-btn:hover {
+    background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%); /* Reverse gradient on hover */
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.2); /* Deeper shadow on hover */
+}
+
+/* Result display section */
+.income-result {
+    background: #eff6ff; /* Light blue background for result */
+    color: #1e40af; /* Darker blue text */
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    border-radius: 0 0 14px 14px; /* Rounded only at the bottom */
+    margin-top: 0; /* Remove margin-top as padding in .income-fieldset handles spacing */
+    box-shadow: 0 -2px 8px rgba(30, 58, 138, 0.04); /* Subtle shadow at top to separate from form */
+}
+
+.income-result h3 {
+    font-size: 1.2rem; /* Larger font for result title */
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #1e3a8a; /* Consistent dark blue with header gradient end color */
+}
+
+.income-result p {
+    font-size: 2.3rem; /* Very large and bold for the actual average income */
+    font-weight: 800;
+    color: #2563eb; /* Use the primary blue for the final number */
+    margin: 0;
+    letter-spacing: 1px; /* Slightly increased letter spacing for impact */
+}
+
+
+/* Basic Responsiveness */
+@media (max-width: 500px) {
+    .income-container {
+        margin: 1.5rem; /* Smaller margin on very small screens */
+        border-radius: 0; /* No border-radius on very small screens for full width */
+        box-shadow: none; /* No shadow on very small screens */
+    }
+
+    .income-header {
+        border-radius: 0; /* No border-radius for full width on mobile */
+    }
+
+    .income-fieldset {
+        padding: 1.5rem 1rem 1rem 1rem; /* Reduce padding inside the form */
+    }
+
+    .submit-btn {
+        width: calc(100% - 2rem); /* Adjust width for smaller screens */
+        margin: 1rem 1rem 1rem 1rem;
+    }
+
+    .income-result {
+        border-radius: 0; /* No border-radius on mobile */
+    }
 }

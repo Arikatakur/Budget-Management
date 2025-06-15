@@ -1,19 +1,21 @@
-<h2>Welcome, {{ userName }}!</h2>
+<div class="dashboard-section-card">
+    <h2>Welcome, {{ userName }}!</h2>
+</div>
 
-<div>
-  <h3>This Month’s Summary</h3>
-  <p><strong>Income:</strong> ${{ income }}</p>
-  <p><strong>Expenses:</strong> ${{ expenses }}</p>
-  <p><strong>Balance:</strong> ${{ balance }}</p>
-  <p><strong>Average Monthly Income:</strong> ${{ averageIncome }}</p>
+<div class="dashboard-section-card">
+    <h3 class="summary-title">This Month’s Summary</h3>
+    <p><strong>Income:</strong> <span class="income-value">${{ income }}</span></p>
+    <p><strong>Expenses:</strong> <span class="expense-value">${{ expenses }}</span></p>
+    <p><strong>Balance:</strong> <span class="balance-value">${{ balance }}</span></p>
+    <p><strong>Average Monthly Income:</strong> ${{ averageIncome }}</p>
 </div>
 
 <hr>
 
-<div style="max-width: 400px;">
-  <h4>Income vs. Expenses</h4>
-  <canvas baseChart
-          [data]="pieChartData"
-          [type]="pieChartType">
-  </canvas>
+<div class="chart-card">
+    <h4 class="chart-title">Income vs. Expenses</h4>
+    <canvas baseChart
+            [data]="pieChartData"
+            [type]="pieChartType">
+    </canvas>
 </div>

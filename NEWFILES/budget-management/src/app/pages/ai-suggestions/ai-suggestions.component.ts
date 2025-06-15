@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-ai-suggestions',
-  imports: [],
   templateUrl: './ai-suggestions.component.html',
-  styleUrl: './ai-suggestions.component.css'
+  styleUrls: ['./ai-suggestions.component.css']
 })
-export class AiSuggestionsComponent {
-
-}
+export class AiSuggestionsComponent {}

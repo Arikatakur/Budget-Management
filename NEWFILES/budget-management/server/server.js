@@ -12,20 +12,30 @@ sequelize.authenticate()
   .catch(err => console.log('Error: ' + err));
 
 // --- Middleware ---
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 
 // --- Routes ---
-app.use('/api/auth', require('./routes/auth')); // i'll use api/users for this, but i've kept it because u added it monther.
+// The single, correct route for authentication
+app.use('/api/auth', require('./routes/auth')); 
 
-// added routes for user management, transactions, categories, and AI suggestions
+// Routes for user management, transactions, categories, and AI suggestions
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/suggestions', require('./routes/suggestionRoutes'));
 
+
 // --- Sync Models & Start Server ---
-sequelize.sync().then(() => {
+// The { alter: true } option will automatically add the missing 'phone' column to your database.
+sequelize.sync({ alter: true }).then(() => {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+  console.log("Database synced with { alter: true }. All models should now match the database schema.");
+}).catch(err => {
+    console.error("Error syncing database:", err);
 });

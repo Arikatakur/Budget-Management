@@ -1,8 +1,6 @@
-// models/User.js
-
 const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 const bcrypt = require('bcryptjs');
-const sequelize = require('../config/database'); // We will create this file next
 
 const User = sequelize.define('User', {
   name: {
@@ -23,9 +21,10 @@ const User = sequelize.define('User', {
   },
   phone: {
     type: DataTypes.STRING,
+    allowNull: true,
   },
   averageIncome: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: true,
   }
 }, {
@@ -36,7 +35,13 @@ const User = sequelize.define('User', {
         user.password = await bcrypt.hash(user.password, salt);
       }
     },
-  },
+    beforeUpdate: async (user) => {
+      if (user.changed('password')) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+      }
+    }
+  }
 });
 
 module.exports = User;

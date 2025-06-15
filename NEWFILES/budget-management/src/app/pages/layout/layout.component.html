@@ -1,30 +1,6 @@
-<div class="layout">
-  <header>
-    <!-- <nav>
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/income">Income</a>
-      <a routerLink="/transactions">Transactions</a>
-      <a routerLink="/ai-suggestions">AI Tips</a>
-      <a routerLink="/reports">Reports</a>
-      <a routerLink="/login">Logout</a>
-    </nav> -->
-        <h1>Budget Manager</h1>
-  </header>
-
-  <div class="main">
-    <aside>
-      <ul>
-        <li><a routerLink="/dashboard">🏠 Dashboard</a></li>
-        <li><a routerLink="/income">💰 Income</a></li>
-        <li><a routerLink="/transactions">📒 Transactions</a></li>
-        <li><a routerLink="/ai-suggestions">🤖 AI Suggestions</a></li>
-        <li><a routerLink="/reports">📊 Reports</a></li>
-        <li><a routerLink="/login">🚪 Logout</a></li>
-      </ul>
-    </aside>
-
-    <section class="content">
-      <router-outlet></router-outlet>
-    </section>
-  </div>
-</div>
+<app-header></app-header>
+<main class="main">
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+</main>
