@@ -20,12 +20,9 @@ export class LoginComponent {
   onSubmit() {
     this.auth.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
-        // The userId is now saved automatically by the AuthService.
-        // We can just navigate to the dashboard.
         this.router.navigate(['/dashboard']);
       },
       error: err => {
-        // Using console.error is better for debugging than alert()
         console.error('Login failed:', err); 
         alert(err.error?.error || 'Login failed');
       }

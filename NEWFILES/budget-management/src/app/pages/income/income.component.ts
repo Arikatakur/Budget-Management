@@ -22,10 +22,9 @@ export class IncomeComponent {
   calculateAverage(): void {
     const total = this.salaries.reduce((sum, salary) => sum + (Number(salary) || 0), 0);
     this.averageIncome = total / this.salaries.length;
-    
 
-    const userId = localStorage.getItem('userId'); // Assume this is stored after login
-    
+    const userId = localStorage.getItem('userId');
+
     if (userId) {
       this.userService.updateAverageIncome(userId, this.averageIncome).subscribe({
         next: () => console.log('Average income saved'),

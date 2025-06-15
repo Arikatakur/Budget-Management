@@ -14,13 +14,9 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    
-    // Log the current router state
     this.router.events.subscribe(event => {
       console.log('Router Event:', event);
     });
-
-    // Log the active route
     this.activatedRoute.url.subscribe(url => {
       console.log('Active Route:', url);
     });

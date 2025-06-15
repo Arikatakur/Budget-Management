@@ -1,12 +1,9 @@
-// server/models/index.js
 const sequelize    = require('../config/database');   
-
 const User        = require('./User');
 const Transaction = require('./Transaction');
 const Category    = require('./Category');
 const AISuggestion= require('./AISuggestion');
 
-// Define associations
 User.hasMany(Transaction, { foreignKey: 'userId' });
 Transaction.belongsTo(User, { foreignKey: 'userId' });
 

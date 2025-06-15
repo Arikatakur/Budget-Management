@@ -4,7 +4,7 @@ import { Transaction } from '../../core/models/transaction.model';
 import { UserService } from '../../core/services/user.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartType, ChartData } from 'chart.js';
-import { CommonModule } from '@angular/common'; // Needed for *ngIf or pipes like currency
+import { CommonModule } from '@angular/common';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -15,13 +15,12 @@ import { CurrencyPipe } from '@angular/common';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  userName = 'Saleem'; // Replace with real user info from JWT/localStorage later
+  userName = 'Saleem';
   averageIncome: number = 0;
   income = 0;
   expenses = 0;
   balance = 0;
 
-  // Chart configuration
   public pieChartType: ChartType = 'pie';
 
   public pieChartData: ChartData<'pie'> = {
@@ -40,7 +39,6 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Fetch transactions
     this.transactionService.getTransactions().subscribe((transactions: Transaction[]) => {
       const now = new Date();
       const thisMonthTxns = transactions.filter(txn => {
@@ -58,11 +56,9 @@ export class DashboardComponent implements OnInit {
 
       this.balance = this.income - this.expenses;
 
-      // Update pie chart
       this.pieChartData.datasets[0].data = [this.income, this.expenses];
     });
 
-    // Fetch user's average income
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.averageIncome = user.averageIncome;

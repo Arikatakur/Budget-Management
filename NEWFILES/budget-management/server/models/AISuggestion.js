@@ -12,7 +12,7 @@ const AISuggestion = sequelize.define('AISuggestion', {
   },
   status: {
     type: DataTypes.STRING,
-    defaultValue: 'new', // or 'viewed'
+    defaultValue: 'new',
   },
   userId: {
     type: DataTypes.INTEGER,
