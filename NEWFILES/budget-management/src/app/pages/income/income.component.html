@@ -6,7 +6,7 @@
     </div>
 
     <form (ngSubmit)="calculateAverage()">
-        <fieldset class="income-fieldset"> <legend class="fieldset-legend">Monthly Income (Last 5 Months)</legend>
+        <div class="income-fieldset"> <legend class="fieldset-legend">Monthly Income (Last 5 Months)</legend>
 
             <div class="input-row">
                 <label for="salary0">Income for {{ getMonthLabel(0) }}:</label>
@@ -33,7 +33,7 @@
                 <input type="number" id="salary4" name="salary4" [(ngModel)]="salaries[4]" min="0" step="any" required />
             </div>
 
-        </fieldset>
+        </div>
 
         <button type="submit" class="submit-btn">Calculate Average</button>
     </form>

@@ -30,4 +30,13 @@ export class UserService {
   getUserId(): string | null {
     return localStorage.getItem('userId');
   }
+  getUserName(): Observable<string | null> {
+    const userId = this.getUserId();
+    if (!userId) {
+      return of(null);
+    }
+    return this.http.get<any>(`${this.apiUrl}/${userId}`).pipe(
+      switchMap(user => of(user?.name ?? null))
+    );
+  }
 }

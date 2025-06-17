@@ -9,11 +9,13 @@ import { AiSuggestionsComponent } from './pages/ai-suggestions/ai-suggestions.co
 import { ReportsComponent } from './pages/reports/reports.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'income', component: IncomeComponent },
       { path: 'transactions', component: TransactionsComponent },
@@ -21,7 +23,5 @@ export const routes: Routes = [
       { path: 'reports', component: ReportsComponent }
     ]
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'register' }
 ];
