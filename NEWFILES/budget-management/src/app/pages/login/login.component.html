@@ -1,39 +1,33 @@
 <div class="auth-container">
   <div class="auth-card">
-    <!-- header -->
     <div class="auth-header">
       <h2>Welcome Back!</h2>
       <p>Sign in to your account</p>
     </div>
-
-    <!-- form -->
     <form (ngSubmit)="onSubmit()" class="auth-form">
-      <label for="email" class="sr-only">Email</label>
-      <input
+      <div *ngIf="errorMessage" class="auth-error">
+        {{ errorMessage }}
+      </div>
+      <app-form-field
+        label="Email"
         type="email"
         id="email"
         name="email"
         [(ngModel)]="email"
         placeholder="Email address"
-        required
-        class="auth-input"
-      />
-
-      <label for="password" class="sr-only">Password</label>
-      <input
+        [required]="true"
+      ></app-form-field>
+      <app-form-field
+        label="Password"
         type="password"
         id="password"
         name="password"
         [(ngModel)]="password"
         placeholder="Password"
-        required
-        class="auth-input"
-      />
-
+        [required]="true"
+      ></app-form-field>
       <button type="submit" class="auth-button">Login</button>
     </form>
-
-    <!-- footer link -->
     <p class="auth-link-text">
       Don’t have an account?
       <a routerLink="/register" class="auth-link">Register here</a>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionService } from '../../services/transaction.service';
-import { UserService } from '../../services/user.service';
+import { TransactionService } from '../../core/services/transaction.service';
+import { UserService } from '../../core/services/user.service';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartType, ChartData } from 'chart.js';
 import { CommonModule } from '@angular/common';

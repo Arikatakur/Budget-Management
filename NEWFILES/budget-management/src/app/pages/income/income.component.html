@@ -7,32 +7,18 @@
 
     <form (ngSubmit)="calculateAverage()">
         <div class="income-fieldset"> <legend class="fieldset-legend">Monthly Income (Last 5 Months)</legend>
-
-            <div class="input-row">
-                <label for="salary0">Income for {{ getMonthLabel(0) }}:</label>
-                <input type="number" id="salary0" name="salary0" [(ngModel)]="salaries[0]" min="0" step="any" required />
-            </div>
-
-            <div class="input-row">
-                <label for="salary1">Income for {{ getMonthLabel(1) }}:</label>
-                <input type="number" id="salary1" name="salary1" [(ngModel)]="salaries[1]" min="0" step="any" required />
-            </div>
-
-            <div class="input-row">
-                <label for="salary2">Income for {{ getMonthLabel(2) }}:</label>
-                <input type="number" id="salary2" name="salary2" [(ngModel)]="salaries[2]" min="0" step="any" required />
-            </div>
-
-            <div class="input-row">
-                <label for="salary3">Income for {{ getMonthLabel(3) }}:</label>
-                <input type="number" id="salary3" name="salary3" [(ngModel)]="salaries[3]" min="0" step="any" required />
-            </div>
-
-            <div class="input-row">
-                <label for="salary4">Income for {{ getMonthLabel(4) }}:</label>
-                <input type="number" id="salary4" name="salary4" [(ngModel)]="salaries[4]" min="0" step="any" required />
-            </div>
-
+            <ng-container *ngFor="let label of monthLabels; let i = index">
+                <app-form-field
+                    [label]="'Income for ' + label + ':'"
+                    type="number"
+                    [id]="'salary' + i"
+                    [name]="'salary' + i"
+                    [(ngModel)]="salaries[i]"
+                    [min]="0"
+                    step="any"
+                    [required]="true"
+                ></app-form-field>
+            </ng-container>
         </div>
 
         <button type="submit" class="submit-btn">Calculate Average</button>

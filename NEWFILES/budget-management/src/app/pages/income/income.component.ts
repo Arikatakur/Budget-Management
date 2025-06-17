@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../core/services/user.service';
+import { FormFieldComponent } from '../../shared/components/form-field.component';
 
 @Component({
   selector: 'app-income',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FormFieldComponent],
   templateUrl: './income.component.html',
   styleUrls: ['./income.component.css']
 })
