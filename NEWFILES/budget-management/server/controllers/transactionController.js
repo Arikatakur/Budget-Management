@@ -6,6 +6,11 @@ exports.createTransaction = async (req, res) => {
     if (!req.body.userId) {
       return res.status(400).json({ error: 'userId is required in the request body.' });
     }
+    const { type } = req.body;
+
+    if (!type || !['income', 'expense'].includes(type)) {
+      return res.status(400).json({ error: 'Transaction type must be either "income" or "expense".' });
+    }
     const transaction = await Transaction.create(req.body);
     res.status(201).json(transaction);
   } catch (err) {
@@ -68,6 +73,45 @@ exports.deleteTransaction = async (req, res) => {
 
     await transaction.destroy();
     res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getMonthlySummary = async (req, res) => { // Get the monthly summary of transactions for a user, added by noor still in checking
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: 'userId is required in query params.' });
+    }
+
+    const now = new Date();
+    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+
+    const transactions = await Transaction.findAll({
+      where: {
+        userId,
+        date: {
+          [require('sequelize').Op.between]: [startOfLastMonth, endOfLastMonth]
+        }
+      }
+    });
+
+    let income = 0;
+    let expenses = 0;
+
+    transactions.forEach(tx => {
+      if (tx.type === 'income') income += tx.amount;
+      else if (tx.type === 'expense') expenses += tx.amount;
+    });
+
+    res.json({
+      income,
+      expenses,
+      balance: income - expenses
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

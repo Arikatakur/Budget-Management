@@ -26,6 +26,10 @@ const Transaction = sequelize.define('Transaction', {
   categoryId: {
     type: DataTypes.INTEGER,
     allowNull: true
+  },
+  type: {
+  type: DataTypes.ENUM('income', 'expense'),
+  allowNull: false
   }
 }, {
   tableName: 'transactions',
