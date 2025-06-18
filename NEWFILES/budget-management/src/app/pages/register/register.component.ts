@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormFieldComponent } from '../../shared/components/form-field.component';
-import { SharedButtonComponent } from '../../shared/components/shared-button.component';
-import { SharedCardComponent } from '../../shared/components/shared-card.component';
-import { SharedErrorComponent } from '../../shared/components/shared-error.component';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +13,7 @@ import { SharedErrorComponent } from '../../shared/components/shared-error.compo
     FormsModule,
     RouterModule,
     FormFieldComponent,
-    SharedButtonComponent,
-    SharedCardComponent,
-    SharedErrorComponent
+    
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']

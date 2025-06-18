@@ -2,11 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { FormFieldComponent } from '../../shared/components/form-field.component';
-import { SharedButtonComponent } from '../../shared/components/shared-button.component';
-import { SharedCardComponent } from '../../shared/components/shared-card.component';
-import { SharedErrorComponent } from '../../shared/components/shared-error.component';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +12,7 @@ import { SharedErrorComponent } from '../../shared/components/shared-error.compo
     CommonModule,
     FormsModule,
     RouterModule,
-    FormFieldComponent,
-    SharedButtonComponent,
-    SharedCardComponent,
-    SharedErrorComponent
+    FormFieldComponent
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -35,7 +29,7 @@ export class LoginComponent {
       next: () => {
         this.router.navigate(['/dashboard']);
       },
-      error: err => {
+      error: (err: any) => {
         this.errorMessage = err.error?.error || 'Login failed';
       }
     });
