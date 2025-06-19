@@ -22,6 +22,15 @@ export class DashboardComponent implements OnInit {
 
   public pieChartType: ChartType = 'pie';
 
+  public chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: <const>'bottom'
+    }
+  }
+};
+
   public pieChartData: ChartData<'pie'> = {
     labels: ['Income', 'Expenses'],
     datasets: [
@@ -44,6 +53,7 @@ export class DashboardComponent implements OnInit {
       this.balance = summary.balance;
       this.pieChartData.datasets[0].data = [this.income, this.expenses];
     });
+    
 
 
     this.userService.getCurrentUser().subscribe({
