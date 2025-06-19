@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 export class TransactionService {
   private apiUrl = 'http://localhost:3000/api/transactions';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTransactions(): Observable<any[]> {
     const userId = localStorage.getItem('userId');
@@ -26,8 +26,16 @@ export class TransactionService {
   updateTransaction(id: string, transaction: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, transaction);
   }
+  getSummary(): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      return of({ income: 0, expenses: 0, balance: 0 });
+    }
+    return this.http.get<any>(`${this.apiUrl}/summary?userId=${userId}`);
+  }
 
   deleteTransaction(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    const userId = localStorage.getItem('userId');
+    return this.http.delete(`${this.apiUrl}/${id}?userId=${userId}`);
   }
 }

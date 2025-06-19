@@ -35,28 +35,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.transactionService.getTransactions().subscribe((transactions: any[]) => {
-      const now = new Date();
-      const thisMonthTxns = transactions.filter(txn => {
-        const d = new Date(txn.date);
-        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-      });
-
-      this.income = thisMonthTxns
-        .filter(t => t.amount > 0)
-        .reduce((sum, t) => sum + t.amount, 0);
-
-      this.expenses = thisMonthTxns
-        .filter(t => t.amount < 0)
-        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
-
-      this.balance = this.income - this.expenses;
-
+    this.transactionService.getSummary().subscribe((summary) => {
+      this.income = summary.income;
+      this.expenses = summary.expenses;
+      this.balance = summary.balance;
       this.pieChartData.datasets[0].data = [this.income, this.expenses];
     });
+
 
     this.userService.getCurrentUser().subscribe({
       next: (user) => {
