@@ -87,14 +87,14 @@ exports.getMonthlySummary = async (req, res) => { // Get the monthly summary of 
     }
 
     const now = new Date();
-    const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+    const startOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfToday = now;
 
     const transactions = await Transaction.findAll({
       where: {
         userId,
         date: {
-          [require('sequelize').Op.between]: [startOfLastMonth, endOfLastMonth]
+          [require('sequelize').Op.between]: [startOfThisMonth, endOfToday]
         }
       }
     });
