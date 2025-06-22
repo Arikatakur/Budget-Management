@@ -1,10 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f8f8f8;
-  margin: 0;
-  padding: 0;
-}
-
 
 
 .income-header {
@@ -15,7 +8,9 @@ body {
 h2 {
     text-align: center;
   margin-bottom: 20px;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
+      font-weight: 700;
+
   color: #2d3748;
 
 }
@@ -24,6 +19,8 @@ h2 {
   margin: 0;
   color: #666;
   font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 500;
 }
 
 form {
@@ -51,21 +48,20 @@ form {
   font-size: 1rem;
 }
 
-.submit-btn {
-  background: #36a2eb;
-  color: #fff;
+button {
+  background-color: #00ff2f;
+  color: white;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
-  padding: 10px 0;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.2s;
+  transition: background 0.3s ease;
 }
 
 .submit-btn:hover {
-  background: #258cd1;
+  background: #00a743;
 }
 
 .income-average {

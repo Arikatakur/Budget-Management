@@ -31,15 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 };
 
-  public pieChartData: ChartData<'pie'> = {
-    labels: ['Income', 'Expenses'],
-    datasets: [
-      {
-        data: [0, 0],
-        backgroundColor: ['#36A2EB', '#FF6384']
-      }
-    ]
-  };
+  public pieChartData: ChartData<'pie'> | undefined ;
 
   constructor(
     private transactionService: TransactionService,
@@ -51,7 +43,15 @@ export class DashboardComponent implements OnInit {
       this.income = summary.income;
       this.expenses = summary.expenses;
       this.balance = summary.balance;
-      this.pieChartData.datasets[0].data = [this.income, this.expenses];
+      this.pieChartData = {
+        labels: ['Income', 'Expenses'],
+        datasets: [
+          {
+            data: [this.income, this.expenses],
+            backgroundColor: ['#36A2EB', '#FF6384']
+          }
+        ]
+      };    
     });
     
 
