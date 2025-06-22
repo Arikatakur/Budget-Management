@@ -6,13 +6,13 @@ const AISuggestion = sequelize.define('AISuggestion', {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  response: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
   dateGenerated: {
     type: DataTypes.DATEONLY,
     defaultValue: DataTypes.NOW,
-  },
-  status: {
-    type: DataTypes.STRING,
-    defaultValue: 'new',
   },
   userId: {
     type: DataTypes.INTEGER,

@@ -1,0 +1,70 @@
+.ai-suggestion-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 1.6rem;
+  color: #2d3748;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+textarea.form-control {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}
+
+.spinner {
+  margin: 16px 0;
+  color: #2563eb;
+}
+
+.alert {
+  margin: 16px 0;
+  color: #fff;
+  background: #e53e3e;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.ai-response {
+  margin-top: 24px;
+  background: #f1f5f9;
+  padding: 16px;
+  border-radius: 8px;
+  color: #222;
+  font-size: 1.05rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
