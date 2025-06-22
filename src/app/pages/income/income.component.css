@@ -5,24 +5,19 @@ body {
   padding: 0;
 }
 
-.income-container {
-  max-width: 400px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0px 5px 20px rgba(0,0,0,0.4);
-  padding: 24px 20px 20px 20px;
-}
+
 
 .income-header {
   text-align: center;
   margin-bottom: 18px;
 }
 
-.income-header h2 {
-  margin: 0 0 6px 0;
-  font-size: 1.3rem;
-  color: #222;
+h2 {
+    text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+  color: #2d3748;
+
 }
 
 .income-header p {

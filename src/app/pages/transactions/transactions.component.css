@@ -3,11 +3,6 @@
   background-color: #f9f9f9;
 }
 
-.transactions-container h2 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 1rem;
-}
 
 .transactions-container ul {
   list-style: none;
@@ -33,7 +28,7 @@
 }
 
 .transactions-container h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #2c3e50;
   margin-bottom: 1.5rem;
 }
