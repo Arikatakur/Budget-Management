@@ -15,6 +15,11 @@ header h1 {
   text-align: left;
 }
 
+/* Hide nav for welcome page if needed by class or selector */
+header .hide-nav nav {
+  display: none;
+}
+
 header nav {
   margin-top: 0;
   padding: 0;

@@ -7,9 +7,10 @@ import { IncomeComponent } from './pages/income/income.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AiSuggestionsComponent } from './pages/ai-suggestions/ai-suggestions.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', component: WelcomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -23,5 +24,5 @@ export const routes: Routes = [
       { path: 'reports', component: ReportsComponent }
     ]
   },
-  { path: '**', redirectTo: 'register' }
+  { path: '**', redirectTo: '' }
 ];
