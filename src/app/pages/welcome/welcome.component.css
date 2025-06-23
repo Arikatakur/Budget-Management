@@ -47,7 +47,6 @@
   height: 100%;
   width: 100%;
   color: var(--text-light);
-
   /* Flexbox layout to structure the header and main content */
   display: flex;
   flex-direction: column;

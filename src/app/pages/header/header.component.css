@@ -1,11 +1,13 @@
 header {
-  background-color: #2563eb;
-  color: #fff;
-  padding: 20px;
-  height: auto;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  background: rgba(20, 20, 30, 0.2);
+  backdrop-filter: blur(8px); /* Modern glass effect */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 header h1 {
