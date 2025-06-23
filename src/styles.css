@@ -46,11 +46,12 @@ body {
 
 .modal-container {
   /* Sizing & Appearance */
-  background: #ffffff;
-  color: #2d3748;
+  background: #ffffff1a;
+  color: #ffffff;
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
   width: 90%;
   max-width: 450px;
   position: relative; /* Needed for the close button to be positioned inside */
@@ -73,8 +74,7 @@ body {
 }
 
 .modal-close-btn:hover {
-  color: #333;
-  background-color: #f0f0f0;
+  color: #a93535;
   transform: rotate(90deg);
 }
 
@@ -85,7 +85,7 @@ body {
 
 .modal-container h3 {
   font-size: 1.8rem;
-  color: #2d3748;
+  color: #ffffff;
   margin-bottom: 2rem;
   text-align: center;
   font-weight: 700;
@@ -99,7 +99,7 @@ body {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.95rem;
 }
