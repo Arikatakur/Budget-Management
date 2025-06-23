@@ -1,47 +1,109 @@
 // src/app/welcome/welcome.component.ts
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // For *ngIf
-import { RouterModule } from '@angular/router'; // For routerLink in the header
 
-// Assuming these are your existing standalone components
-import { LoginComponent } from '../login/login.component'; // Adjust path if necessary
-import { RegisterComponent } from '../register/register.component'; // Adjust path if necessary
+import { Component, OnInit, OnDestroy, ElementRef, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css'],
-  standalone: true, // Mark as standalone component
+  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
-    LoginComponent, // Import your existing LoginComponent
-    RegisterComponent // Import your existing RegisterComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  private videoElement: HTMLVideoElement | null = null;
+  private canPlayListener: (() => void) | null = null;
+  private interactionListener: (() => void) | null = null;
+
   showLogin: boolean = false;
   showRegister: boolean = false;
 
-  constructor() { } // Removed AuthService as you're not using Firebase directly here
+  constructor(private el: ElementRef) { }
 
-  ngOnInit(): void {
-    // If you need to check authentication status here (e.g., to redirect
-    // already logged-in users away from the welcome page),
-    // you would inject your custom AuthService and use it here.
-    // Example (conceptual, depends on your AuthService):
-    // if (this.myAuthService.isLoggedIn()) {
-    //   this.router.navigate(['/dashboard']);
-    // }
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.videoElement = this.el.nativeElement.querySelector('.background-video');
+
+      if (!this.videoElement) {
+        console.error("WelcomeComponent: Video element could not be found.");
+        return;
+      }
+      
+      this.canPlayListener = () => {
+        this.attemptToPlayVideo();
+      };
+      
+      this.videoElement.addEventListener('canplay', this.canPlayListener);
+
+    }, 0);
   }
 
+  private attemptToPlayVideo(): void {
+    if (!this.videoElement) return;
+
+    const playPromise = this.videoElement.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        // This is where we handle the browser's autoplay policy
+        if (error.name === 'NotAllowedError') {
+          console.warn('Autoplay was prevented. Waiting for the first user interaction.');
+          
+          // If blocked, set up a one-time listener for a click or tap
+          this.interactionListener = () => {
+            this.videoElement!.play().then(() => {
+              console.log('Video started playing after user interaction.');
+            }).catch(err => {
+              console.error('Failed to play video even after interaction.', err);
+            });
+            // IMPORTANT: Clean up the listener after it has run once
+            this.removeInteractionListener();
+          };
+          document.addEventListener('click', this.interactionListener);
+          document.addEventListener('touchend', this.interactionListener);
+
+        } else {
+          console.error("An unexpected error occurred while trying to play the video.", error);
+        }
+      });
+    }
+  }
+
+  // It's crucial to clean up all event listeners when the component is destroyed
+  ngOnDestroy(): void {
+    if (this.videoElement && this.canPlayListener) {
+      this.videoElement.removeEventListener('canplay', this.canPlayListener);
+    }
+    this.removeInteractionListener();
+  }
+
+  private removeInteractionListener(): void {
+    if (this.interactionListener) {
+      document.removeEventListener('click', this.interactionListener);
+      document.removeEventListener('touchend', this.interactionListener);
+      this.interactionListener = null;
+    }
+  }
+
+  // --- Modal logic remains the same ---
   openLoginModal(): void {
-    this.showRegister = false; // Close register if open
+    this.showRegister = false;
     this.showLogin = true;
   }
 
   openRegisterModal(): void {
-    this.showLogin = false; // Close login if open
+    this.showLogin = false;
     this.showRegister = true;
   }
 

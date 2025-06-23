@@ -33,7 +33,6 @@ body {
 
   /* Appearance */
   background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
-  backdrop-filter: blur(5px); /* Blurs the content behind it */
 
   /* Centering */
   display: flex;
@@ -51,7 +50,7 @@ body {
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
+  background-color: rgba(10, 20, 30, 0.7); /* Slightly adjusted for a nice look without blur */
   width: 90%;
   max-width: 450px;
   position: relative; /* Needed for the close button to be positioned inside */
