@@ -68,6 +68,7 @@
   flex-direction: column;
   justify-content: center; /* Centers content vertically */
   align-items: center;     /* Centers content horizontally */
+  z-index: 1;
 }
 
 .welcome-heading {
