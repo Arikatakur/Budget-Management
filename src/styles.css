@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 
 .modal-submit-btn {
   width: 100%;
-  background: #4CAF50;
+  background: #4caf4f00;
   color: #fff;
   padding: 0.9rem 1.5rem;
   border-radius: 8px;
@@ -129,7 +129,7 @@ body::-webkit-scrollbar {
   font-weight: 600;
   font-size: 1.1rem;
   transition: background 0.2s, transform 0.2s;
-  border: none;
+  border: 1px solid #4caf4f;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 1rem;

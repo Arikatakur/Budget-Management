@@ -34,7 +34,8 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.videoElement = this.el.nativeElement.querySelector('.background-video');
+      // CORRECTED: This selector now targets the <video> tag inside the .video-background div.
+      this.videoElement = this.el.nativeElement.querySelector('.video-background video');
 
       if (!this.videoElement) {
         console.error("WelcomeComponent: Video element could not be found.");
