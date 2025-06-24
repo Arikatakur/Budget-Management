@@ -25,12 +25,14 @@
   </div>
 
   <!-- Spinner and alerts appear between cards -->
-  <div *ngIf="isLoading" class="spinner">
-    <p>Thinking...</p>
-  </div>
-  <div *ngIf="error" class="alert">
-    {{ error }}
-  </div>
+  <div *ngIf="isLoading" class="loading-container">
+  <div class="spinner"></div>
+  <p class="loading-text">Thinking...</p>
+</div>
+
+<div *ngIf="error" class="alert">
+  {{ error }}
+</div>
 
   <!-- Card for the main AI response -->
   <div *ngIf="aiResponse" class="glass-card ai-response">
