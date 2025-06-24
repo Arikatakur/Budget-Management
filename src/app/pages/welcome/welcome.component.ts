@@ -26,6 +26,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showLogin: boolean = false;
   showRegister: boolean = false;
+  isClosing: boolean = false; // New property to handle closing animation
 
   constructor(private el: ElementRef) { }
 
@@ -96,19 +97,26 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // --- Modal logic remains the same ---
+  // --- Modal logic updated for animations ---
   openLoginModal(): void {
     this.showRegister = false;
     this.showLogin = true;
+    this.isClosing = false; // Reset closing state
   }
 
   openRegisterModal(): void {
     this.showLogin = false;
     this.showRegister = true;
+    this.isClosing = false; // Reset closing state
   }
 
   closeModals(): void {
-    this.showLogin = false;
-    this.showRegister = false;
+    this.isClosing = true;
+    // Wait for the animation (300ms) to finish before hiding the modal
+    setTimeout(() => {
+      this.showLogin = false;
+      this.showRegister = false;
+      this.isClosing = false; // Reset for the next time
+    }, 300); 
   }
 }

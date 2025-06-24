@@ -23,5 +23,14 @@
   </div>
 </div>
 
-<app-login *ngIf="showLogin" (closeModal)="closeModals()" (goToRegister)="openRegisterModal()"></app-login>
-<app-register *ngIf="showRegister" (closeModal)="closeModals()" (goToLogin)="openLoginModal()"></app-register>
+<app-login 
+  *ngIf="showLogin" 
+  (closeModal)="closeModals()" 
+  (goToRegister)="openRegisterModal()"
+  [isClosing]="isClosing">
+</app-login><app-register 
+  *ngIf="showRegister" 
+  (closeModal)="closeModals()" 
+  (goToLogin)="openLoginModal()"
+  [isClosing]="isClosing">
+</app-register>

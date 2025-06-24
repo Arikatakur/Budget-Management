@@ -4,10 +4,12 @@ header {
   align-items: center;
   padding: 1.5rem 3rem;
   width: 100%;
-  box-sizing: border-box; /* Ensures padding is included in the width */
+  box-sizing: border-box;
   background: rgba(20, 20, 30, 0.2);
-  backdrop-filter: blur(8px); /* Modern glass effect */
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed;
+  z-index: 2;
 }
 
 header h1 {
@@ -17,7 +19,6 @@ header h1 {
   text-align: left;
 }
 
-/* Hide nav for welcome page if needed by class or selector */
 header .hide-nav nav {
   display: none;
 }

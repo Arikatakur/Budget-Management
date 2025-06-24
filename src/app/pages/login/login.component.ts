@@ -1,6 +1,6 @@
 // src/app/login/login.component.ts
 
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,6 +22,7 @@ import { AuthService } from '../../services/auth.service'; // Adjust path if nec
 export class LoginComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
   @Output() goToRegister = new EventEmitter<void>();
+  @Input() isClosing: boolean = false;
 
   loginForm!: FormGroup;
   isLoading = false;

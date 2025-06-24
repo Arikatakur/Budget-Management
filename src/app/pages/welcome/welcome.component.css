@@ -1,164 +1,171 @@
-/* src/app/welcome/welcome.component.css */
-
-/* Define color palette and fonts for easy customization */
-:host {
-  --primary-color: #36a2eb;
-  --primary-hover: #2d8cd1;
-  --secondary-color: #5a67d8;
-  --secondary-hover: #4c58b6;
-  --text-light: #ffffff;
-  --text-dark: #2d3748;
-  --bg-overlay: rgba(0, 0, 0, 0.6);
-  --font-main: 'Inter', sans-serif;
-}
-
-/* --- Base Layout --- */
-.welcome-page {
-  position: relative; /* Establishes the stacking and positioning context */
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden; /* Prevents scrollbars from appearing */
-  font-family: var(--font-main);
-}
-
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Crucial: covers the entire area without distortion */
-  z-index: 1; /* Bottom-most layer */
-}
-
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--bg-overlay);
-  z-index: 2; /* Sits on top of the video */
-}
-
-.content-wrapper {
-  position: relative; /* Must be relative to use z-index */
-  z-index: 3; /* Sits on top of the overlay */
-  height: 100%;
-  width: 100%;
-  color: var(--text-light);
-  /* Flexbox layout to structure the header and main content */
+.transactions-container {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  padding-top: 115px;
 }
 
-/* --- Header Styling --- */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3rem;
-  width: 100%;
-  box-sizing: border-box; /* Ensures padding is included in the width */
-  background: rgba(20, 20, 30, 0.2);
-  backdrop-filter: blur(8px); /* Modern glass effect */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-/* --- Main Content Styling --- */
-.main-content {
-  /* This combination of flex properties perfectly centers the content */
-  flex-grow: 1; /* Takes up all available space between header and footer */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Vertical centering */
-  align-items: center; /* Horizontal centering */
-  text-align: center;
+.glass-card {
   padding: 2rem;
+  background: rgba(0, 0, 0, 0.226);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  color: #ffffff;
 }
 
-.welcome-heading {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin: 0 0 1rem 0;
+h2 {
+  text-align: center;
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
 }
 
-.welcome-subheading {
-  font-size: 1.25rem;
-  max-width: 600px;
-  line-height: 1.6;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
 }
 
-/* --- Button Styling --- */
-.btn {
-  padding: 0.75rem 1.75rem;
-  border: none;
+label {
+  font-size: 1rem;
+  margin-bottom: 3px;
+  color: #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form div {
+  margin-bottom: 1rem;
+}
+
+input,
+select {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s ease, background-color 0.3s ease;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+select option {
+    background: #2d3748;
+    color: #ffffff;
+}
+
+input:focus,
+select:focus {
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+button {
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+button:hover:not(:disabled) {
+  background-color: #0000007b;
 }
 
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--text-light);
-}
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: var(--text-light);
-  border: 2px solid var(--text-light);
+.delete-btn {
+  background-color: rgba(220, 53, 69, 0.3);
+  padding: 0.5rem;
+  border-radius: 50%;
+  line-height: 0;
+  border: 1px solid rgba(220, 53, 69, 0.4);
 }
 
-.btn-secondary:hover {
-  background-color: var(--text-light);
-  color: var(--text-dark);
+.delete-btn:hover {
+    background-color: rgba(220, 53, 69, 0.5);
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-  .page-header {
-    padding: 1rem 1.5rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
+.transaction-list {
+  max-height: 280px;
+  overflow-y: auto;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  scrollbar-color: rgba(255,255,255,0.5) transparent;
+  scrollbar-width: thin;
+}
+.transaction-list::-webkit-scrollbar {
+  width: 8px;
+}
+.transaction-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.transaction-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
 
-  .welcome-heading {
-    font-size: 2.5rem;
-  }
+.transactions-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .welcome-subheading {
-    font-size: 1.1rem;
-  }
+.transactions-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.transactions-container li:last-child {
+  border-bottom: none;
+}
 
-  .btn {
-    padding: 0.6rem 1.2rem;
-  }
+.txn-details {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  align-items: center;
+}
+
+.txn-amount {
+  min-width: 100px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.txn-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 1rem;
+  color: #e0e0e0;
 }

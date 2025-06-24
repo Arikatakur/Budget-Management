@@ -1,6 +1,6 @@
 // src/app/register/register.component.ts
 
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -32,6 +32,7 @@ export function passwordMatchValidator(control: AbstractControl): ValidationErro
 export class RegisterComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
   @Output() goToLogin = new EventEmitter<void>();
+  @Input() isClosing: boolean = false;
 
   registerForm!: FormGroup;
   isLoading = false;

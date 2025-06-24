@@ -1,5 +1,5 @@
-<div class="modal-backdrop" (click)="closeModal.emit()">
-  <div class="modal-container" (click)="$event.stopPropagation()">
+<div class="modal-backdrop" (click)="closeModal.emit()" [class.fade-out]="isClosing">
+  <div class="modal-container" (click)="$event.stopPropagation()" [class.fade-out]="isClosing">
     <button class="modal-close-btn" (click)="closeModal.emit()" aria-label="Close">&times;</button>
     
     <h3>Sign In</h3>

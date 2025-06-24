@@ -1,6 +1,9 @@
 <div class="transactions-container">
+  <div class="glass-card">
   <h2>Add Transaction</h2>
+</div>
 
+<div class="glass-card">
   <form (ngSubmit)="addTransaction()" #transactionForm="ngForm">
     <div>
       <label for="amount">Amount:</label>
@@ -27,9 +30,9 @@
 
     <button type="submit" [disabled]="!transactionForm.form.valid">Add Transaction</button>
   </form>
-
+</div>
   <div style="margin-top: 1.5rem;"></div>
-
+<div class="glass-card">
   <div *ngIf="transactions.length > 0">
     <h3>Your Transactions</h3>
     <div class="transaction-list">
@@ -52,5 +55,6 @@
 
   <div *ngIf="transactions.length === 0">
     <p>No transactions found.</p>
+  </div>
   </div>
 </div>
