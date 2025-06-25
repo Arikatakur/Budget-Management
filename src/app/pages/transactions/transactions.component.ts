@@ -114,10 +114,9 @@ export class TransactionsComponent implements OnInit {
     return category ? category.name : 'Unknown';
   }
 
-  // New methods for adding category
   toggleAddCategory(): void {
     this.showAddCategoryInput = !this.showAddCategoryInput;
-    this.newCategoryName = ''; // Clear input when toggling
+    this.newCategoryName = '';
   }
 
   addNewCategory(): void {

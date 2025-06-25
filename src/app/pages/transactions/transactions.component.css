@@ -28,7 +28,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.5rem; /* Matched from Style X */
+  font-size: 1.5rem;
   color: #ffffff;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -56,8 +56,8 @@ select {
   background-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   width: 100%;
-  padding: 0.8rem 1rem; /* Matched from Style X */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Matched from Style X */
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
   font-size: 1rem;
   transition: border 0.3s ease, background-color 0.3s ease;
@@ -65,7 +65,6 @@ select {
   margin-top: 5px;
 }
 
-/* Style for select dropdown options */
 select option {
     background: #2d3748;
     color: #ffffff;
@@ -78,7 +77,6 @@ select:focus {
   outline: none;
 }
 
-/* --- Button (Synced with Style X) --- */
 button {
   color: white;
   padding: 0.75rem 1.5rem;
@@ -105,7 +103,7 @@ button:disabled {
 }
 
 .delete-btn {
-  background-color: rgba(220, 53, 69, 0.3); /* Glassy red */
+  background-color: rgba(220, 53, 69, 0.3);
   padding:none;
   line-height: 0;
   border: 1px solid rgba(220, 53, 69, 0.4);
@@ -115,13 +113,12 @@ button:disabled {
     background-color: rgba(220, 53, 69, 0.5);
 }
 
-/* --- Transaction List (Synced with Style X) --- */
 .transaction-list {
   max-height: 280px;
   overflow-y: auto;
   border-radius: 1rem;
   padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.1); /* Inner glass effect */
+  background-color: rgba(255, 255, 255, 0.1);
   scrollbar-color: rgba(255,255,255,0.5) transparent;
   scrollbar-width: thin;
 }
@@ -174,70 +171,69 @@ button:disabled {
   color: #e0e0e0;
 }
 .category-control {
-  display: flex; /* Makes children (select and button) go side-by-side */
-  align-items: center; /* Vertically aligns them in the middle */
-  gap: 10px; /* Adds space between the select and the button */
-  margin-top: 5px; /* Aligns with the margin-top of other inputs/selects */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
 }
 
 .category-control select {
-  flex-grow: 1; /* Allows the select to take up all available space */
-  width: auto; /* Override the general 100% width to allow flex-grow to work */
-  margin-top: 0; /* Remove the specific margin-top here as it's on the parent now */
+  flex-grow: 1;
+  width: auto;
+  margin-top: 0;
 }
 
 .add-btn {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 50px;
-  font-size: 1.5rem; /* Larger plus sign */
-  padding: 0.5rem 0.8rem; /* Adjust padding for a square-ish button */
-  line-height: 1; /* Center the '+' vertically */
-  display: flex; /* Use flex to perfectly center the '+' */
+  font-size: 1.5rem; 
+  padding: 0.5rem 0.8rem; 
+  line-height: 1; 
+  display: flex; 
   justify-content: center;
   align-items: center;
-  height: 48px; /* Explicit height to match the input/select height */
-  min-width: 48px; /* Make it a square */
-  box-sizing: border-box; /* Important for padding and border to not increase total size */
+  height: 48px; 
+  min-width: 48px; 
+  box-sizing: border-box;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .add-btn:hover {
-  background-color: rgba(0, 123, 255, 0.5); /* Darker blue on hover */
+  background-color: rgba(0, 123, 255, 0.5);
 }
 
-/* Styling for the new category input section */
 .add-category-input {
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap if screen is too small */
-  gap: 10px; /* Space between input and buttons */
-  background: rgba(0, 0, 0, 0.15); /* Slightly darker glass for this section */
+  flex-wrap: wrap; 
+  gap: 10px; 
+  background: rgba(0, 0, 0, 0.15);
   padding: 1.5rem;
-  border-radius: 1rem; /* Consistent border radius */
-  margin-top: 1rem; /* Space from the category dropdown */
+  border-radius: 1rem; 
+  margin-top: 1rem; 
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .add-category-input label {
-  flex-basis: 100%; /* Label takes full width on its own line */
-  margin-bottom: 0; /* Adjust margin as the gap will handle spacing */
-  font-size: 0.9rem; /* Slightly smaller for an inner label */
+  flex-basis: 100%;
+  margin-bottom: 0;
+  font-size: 0.9rem; 
   color: #ccc;
 }
 
 .add-category-input input[type="text"] {
-  flex-grow: 1; /* Input takes up available space */
-  margin-top: 0; /* Reset margin top as the gap will handle spacing */
+  flex-grow: 1; 
+  margin-top: 0; 
 }
 
 .add-category-input button {
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
   border-radius: 50px;
-  margin-top: 0; /* Reset margin top as the gap will handle spacing */
+  margin-top: 0; 
 }
 
 .add-category-input button:first-of-type {
-  background-color: rgba(40, 167, 69, 0.3); /* Green save button */
+  background-color: rgba(40, 167, 69, 0.3); 
   border: 1px solid rgba(40, 167, 69, 0.4);
 }
 
@@ -246,7 +242,7 @@ button:disabled {
 }
 
 .add-category-input button:last-of-type {
-  background-color: rgba(220, 53, 69, 0.3); /* Red cancel button */
+  background-color: rgba(220, 53, 69, 0.3);
   border: 1px solid rgba(220, 53, 69, 0.4);
 }
 

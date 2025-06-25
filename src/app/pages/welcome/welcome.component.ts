@@ -1,4 +1,3 @@
-// src/app/welcome/welcome.component.ts
 
 import { Component, OnInit, OnDestroy, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -26,7 +25,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showLogin: boolean = false;
   showRegister: boolean = false;
-  isClosing: boolean = false; // New property to handle closing animation
+  isClosing: boolean = false;
 
   constructor(private el: ElementRef) { }
 
@@ -34,7 +33,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      // CORRECTED: This selector now targets the <video> tag inside the .video-background div.
       this.videoElement = this.el.nativeElement.querySelector('.video-background video');
 
       if (!this.videoElement) {
@@ -58,18 +56,15 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (playPromise !== undefined) {
       playPromise.catch(error => {
-        // This is where we handle the browser's autoplay policy
         if (error.name === 'NotAllowedError') {
           console.warn('Autoplay was prevented. Waiting for the first user interaction.');
           
-          // If blocked, set up a one-time listener for a click or tap
           this.interactionListener = () => {
             this.videoElement!.play().then(() => {
               console.log('Video started playing after user interaction.');
             }).catch(err => {
               console.error('Failed to play video even after interaction.', err);
             });
-            // IMPORTANT: Clean up the listener after it has run once
             this.removeInteractionListener();
           };
           document.addEventListener('click', this.interactionListener);
@@ -82,7 +77,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // It's crucial to clean up all event listeners when the component is destroyed
   ngOnDestroy(): void {
     if (this.videoElement && this.canPlayListener) {
       this.videoElement.removeEventListener('canplay', this.canPlayListener);
@@ -98,26 +92,24 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // --- Modal logic updated for animations ---
   openLoginModal(): void {
     this.showRegister = false;
     this.showLogin = true;
-    this.isClosing = false; // Reset closing state
+    this.isClosing = false;
   }
 
   openRegisterModal(): void {
     this.showLogin = false;
     this.showRegister = true;
-    this.isClosing = false; // Reset closing state
+    this.isClosing = false;
   }
 
   closeModals(): void {
     this.isClosing = true;
-    // Wait for the animation (300ms) to finish before hiding the modal
     setTimeout(() => {
       this.showLogin = false;
       this.showRegister = false;
-      this.isClosing = false; // Reset for the next time
+      this.isClosing = false;
     }, 300); 
   }
 }

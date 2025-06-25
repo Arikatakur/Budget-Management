@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         console.log('Login successful!', response);
         this.closeModal.emit();
-        this.router.navigate(['/dashboard']); // Or any other protected route
+        this.router.navigate(['/dashboard']);
       },
       error: (err: HttpErrorResponse) => {
         console.error('Login failed:', err);
@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
     }
     
     switch (error.status) {
-      case 401: // Unauthorized
-      case 404: // Not Found
+      case 401:
+      case 404:
         return 'Invalid email or password. Please try again.';
       default:
         return 'An unexpected server error occurred. Please try again later.';

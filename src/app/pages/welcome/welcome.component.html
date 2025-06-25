@@ -1,5 +1,4 @@
-<!-- The duplicate video and overlay have been REMOVED from this file. -->
-<!-- The component will now correctly render on top of the global background from index.html -->
+
 <div class="video-background">
   <video autoplay muted loop playsinline>
     <source src="Background.mp4" type="video/mp4">
@@ -24,7 +23,6 @@
   </main>
 </div>
 
-<!-- Your modals remain here, which is correct -->
 <app-login
   *ngIf="showLogin"
   (closeModal)="closeModals()"

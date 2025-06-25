@@ -42,14 +42,12 @@ exports.generateAndSaveSuggestion = async (req, res) => {
 
     const aiResponseContent = response.data.choices[0].message.content;
 
-    // Save the result to your database
     const savedSuggestion = await AISuggestion.create({
       suggestionText: prompt,
       response: aiResponseContent,
       userId: userId
     });
 
-    // Send the saved suggestion back to the client
     res.status(201).json(savedSuggestion);
 
   } catch (error) {

@@ -1,11 +1,9 @@
-/* :host is a special Angular selector. 
-  These styles apply to the <app-welcome> element itself.
-*/
+
 :host {
   display: block;
-  position: relative; /* This creates a new stacking layer */
-  z-index: 1;         /* Crucial: Lifts this component above the background from index.html */
-  height: 100vh;      /* Makes the component take up the full screen height */
+  position: relative;
+  z-index: 1;    
+  height: 100vh;     
   width: 100%;
 }
 
@@ -63,11 +61,11 @@
 }
 
 .main-content {
-  flex-grow: 1; /* Takes up the remaining vertical space */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centers content vertically */
-  align-items: center;     /* Centers content horizontally */
+  justify-content: center;
+  align-items: center;    
   z-index: 1;
 }
 

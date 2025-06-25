@@ -6,14 +6,14 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-income',
   standalone: true,
-  imports: [CommonModule, FormsModule], // No longer imports FormFieldComponent
+  imports: [CommonModule, FormsModule],
   templateUrl: './income.component.html',
   styleUrls: ['./income.component.css']
 })
 export class IncomeComponent {
   private userService = inject(UserService);
 
-  salaries: number[] = Array(5).fill(null); // Initialize with null for placeholders
+  salaries: number[] = Array(5).fill(null);
   averageIncome: number | null = null;
   monthLabels: string[] = [];
 
@@ -21,9 +21,6 @@ export class IncomeComponent {
     this.generateMonthLabels();
   }
 
-  /**
-   * Calculates the average of the provided salaries and saves it.
-   */
   calculateAverage(): void {
     const validSalaries = this.salaries.map(s => Number(s) || 0).filter(s => s > 0);
     if (validSalaries.length === 0) {
@@ -42,9 +39,6 @@ export class IncomeComponent {
     }
   }
 
-  /**
-   * Generates labels for the last 5 months.
-   */
   private generateMonthLabels(): void {
     const today = new Date();
     this.monthLabels = [];
@@ -54,11 +48,6 @@ export class IncomeComponent {
     }
   }
 
-  /**
-   * A trackBy function for the ngFor loop to improve performance.
-   * @param index The index of the item.
-   * @returns The index as a unique identifier.
-   */
   trackByIndex(index: number): number {
     return index;
   }

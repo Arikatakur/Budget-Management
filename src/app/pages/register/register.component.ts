@@ -1,4 +1,3 @@
-// src/app/register/register.component.ts
 
 import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
@@ -8,9 +7,8 @@ import { finalize } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service'; // Adjust path if necessary
+import { AuthService } from '../../services/auth.service'; 
 
-// Custom validator function to check if two fields match
 export function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password');
   const confirmPassword = control.get('confirmPassword');
@@ -95,9 +93,9 @@ export class RegisterComponent implements OnInit {
     }
 
     switch (error.status) {
-      case 409: // Conflict
+      case 409:
         return 'This email address is already registered.';
-      case 400: // Bad Request
+      case 400:
         return 'Invalid data provided. Please check the form and try again.';
       default:
         return 'An unexpected server error occurred. Please try again later.';

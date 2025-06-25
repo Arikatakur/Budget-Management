@@ -9,7 +9,6 @@ import { Component, AfterViewInit, ElementRef } from '@angular/core';
 export class GlobalBgComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
-    /* random drift for each wave path */
     const waves = (document.querySelectorAll('.bg-wrapper path') as NodeListOf<SVGPathElement>);
     const minS = -120, maxS = 120;
     const minD = 1500, maxD = 4500;

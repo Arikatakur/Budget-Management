@@ -503,7 +503,6 @@
   <a aria-label="Follow Jhey" class="bear-link"
      href="https://twitter.com/intent/follow?screen_name=jh3yy"
      target="_blank" rel="noreferrer noopener">
-    <!-- bear icon SVG omitted for brevity -->
   </a>
 
   <script type="module">
@@ -608,7 +607,6 @@
 
   debugPen.innerHTML = kids;
 
-  // serialize + set the filter inputs
   const svgEl = debugPen.querySelector('.displacement-image');
   const serialized = new XMLSerializer().serializeToString(svgEl);
   const dataUri   = `data:image/svg+xml,${encodeURIComponent(serialized)}`;
@@ -709,10 +707,8 @@
     Draggable.create('.effect', { type: 'x,y' });
     ctrl.on('change', sync);
 
-    // Initial render
     update();
 
-    // Position the .effect box at load
     const { top, left } = document
       .querySelector('.dock-placeholder')
       .getBoundingClientRect();

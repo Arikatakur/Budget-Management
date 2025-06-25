@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://unpkg.com/normalize.css">
 <style>
   :root{
-    --width:336;      /* updated live by JS */
+    --width:336;     
     --height:96;
     --radius:16;
     --frost:0.05;
@@ -54,7 +54,6 @@
       </nav>
     </div>
 
-    <!-- Filter lives inside the glass so its 0,0 = top-left of panel -->
     <svg xmlns="http://www.w3.org/2000/svg" class="filter">
       <defs>
         <filter id="filter"
@@ -93,7 +92,6 @@ const cfg={
   x:'R',y:'B'
 };
 
-/* build RGB displacement map to fit *exactly* inside the panel */
 function buildMap(){
   const pad=Math.min(cfg.width,cfg.height)*cfg.border*0.5;
   const svg=
@@ -125,7 +123,6 @@ function buildMap(){
   }});
 }
 
-/* push size & filter parameters */
 function apply(){
   gsap.set(':root',{
     '--width':cfg.width,
@@ -147,12 +144,10 @@ function apply(){
   gsap.set('feGaussianBlur',{attr:{stdDeviation:cfg.displace}});
 }
 
-/* kick-off */
 buildMap();
 apply();
 gsap.to('.effect',{opacity:1,duration:0.4,ease:'power1.out'});
 
-/* expose for console testing */
 window.cfg=cfg;window.buildMap=buildMap;window.apply=apply;
 </script>
 </body>

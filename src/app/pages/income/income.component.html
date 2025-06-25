@@ -7,7 +7,6 @@
     <div class="glass-card">
       <div class="income-fieldset">
         <legend class="fieldset-legend">Monthly Income (Last 5 Months)</legend>
-        <!-- The app-form-field is replaced with standard HTML -->
         <ng-container *ngFor="let label of monthLabels; let i = index; trackBy: trackByIndex">
           <div class="form-field">
             <label [for]="'salary' + i">{{ 'Income for ' + label + ':' }}</label>

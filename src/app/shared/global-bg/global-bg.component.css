@@ -1,5 +1,4 @@
 :host {
-  /* pin to viewport, ignore pointer events, sit behind everything */
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -22,14 +21,12 @@
   transform: translate(-50%, -50%);
 }
 
-/* drift the gradient */
 @keyframes bg-pan {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* JS-driven wave motion */
 .bg-wrapper path {
   transform: translate(var(--tx, 0), var(--ty, 0));
   transition: transform 3s ease-in-out;
