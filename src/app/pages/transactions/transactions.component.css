@@ -1,30 +1,27 @@
-/* --- Main Container (Synced with Style X) --- */
 .transactions-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Matched from Style X */
-  padding: 20px; /* Matched from Style X */
+  gap: 20px; 
+  padding: 20px; 
   box-sizing: border-box;
       padding-top: 115px; 
 
 }
 
-/* --- Base Glass Card (Synced with Style X) --- */
 .glass-card {
-  padding: 2rem; /* Matched from Style X */
+  padding: 2rem; 
   background: rgba(0, 0, 0, 0.226);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border-radius: 2rem; /* Matched from Style X */
+  border-radius: 2rem; 
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   color: #ffffff;
 }
 
-/* --- Typography (Synced with Style X) --- */
 h2 {
   text-align: center;
-  margin: 0; /* Matched from Style X */
+  margin: 0; 
   font-size: 2.5rem;
   font-weight: 700;
   color: #ffffff;
@@ -42,9 +39,9 @@ label {
   font-size: 1rem;
   margin-bottom: 3px;
   color: #ffffff;
+  padding-left: 9px; 
 }
 
-/* --- Form Elements (Synced with Style X) --- */
 form {
   display: flex;
   flex-direction: column;
@@ -61,7 +58,7 @@ select {
   width: 100%;
   padding: 0.8rem 1rem; /* Matched from Style X */
   border: 1px solid rgba(255, 255, 255, 0.2); /* Matched from Style X */
-  border-radius: 8px; /* Matched from Style X */
+  border-radius: 50px;
   font-size: 1rem;
   transition: border 0.3s ease, background-color 0.3s ease;
   box-sizing: border-box;
@@ -109,8 +106,7 @@ button:disabled {
 
 .delete-btn {
   background-color: rgba(220, 53, 69, 0.3); /* Glassy red */
-  padding: 0.5rem;
-  border-radius: 50%;
+  padding:none;
   line-height: 0;
   border: 1px solid rgba(220, 53, 69, 0.4);
 }
@@ -176,4 +172,84 @@ button:disabled {
   white-space: nowrap;
   margin-left: 1rem;
   color: #e0e0e0;
+}
+.category-control {
+  display: flex; /* Makes children (select and button) go side-by-side */
+  align-items: center; /* Vertically aligns them in the middle */
+  gap: 10px; /* Adds space between the select and the button */
+  margin-top: 5px; /* Aligns with the margin-top of other inputs/selects */
+}
+
+.category-control select {
+  flex-grow: 1; /* Allows the select to take up all available space */
+  width: auto; /* Override the general 100% width to allow flex-grow to work */
+  margin-top: 0; /* Remove the specific margin-top here as it's on the parent now */
+}
+
+.add-btn {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  font-size: 1.5rem; /* Larger plus sign */
+  padding: 0.5rem 0.8rem; /* Adjust padding for a square-ish button */
+  line-height: 1; /* Center the '+' vertically */
+  display: flex; /* Use flex to perfectly center the '+' */
+  justify-content: center;
+  align-items: center;
+  height: 48px; /* Explicit height to match the input/select height */
+  min-width: 48px; /* Make it a square */
+  box-sizing: border-box; /* Important for padding and border to not increase total size */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.add-btn:hover {
+  background-color: rgba(0, 123, 255, 0.5); /* Darker blue on hover */
+}
+
+/* Styling for the new category input section */
+.add-category-input {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap if screen is too small */
+  gap: 10px; /* Space between input and buttons */
+  background: rgba(0, 0, 0, 0.15); /* Slightly darker glass for this section */
+  padding: 1.5rem;
+  border-radius: 1rem; /* Consistent border radius */
+  margin-top: 1rem; /* Space from the category dropdown */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-category-input label {
+  flex-basis: 100%; /* Label takes full width on its own line */
+  margin-bottom: 0; /* Adjust margin as the gap will handle spacing */
+  font-size: 0.9rem; /* Slightly smaller for an inner label */
+  color: #ccc;
+}
+
+.add-category-input input[type="text"] {
+  flex-grow: 1; /* Input takes up available space */
+  margin-top: 0; /* Reset margin top as the gap will handle spacing */
+}
+
+.add-category-input button {
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  margin-top: 0; /* Reset margin top as the gap will handle spacing */
+}
+
+.add-category-input button:first-of-type {
+  background-color: rgba(40, 167, 69, 0.3); /* Green save button */
+  border: 1px solid rgba(40, 167, 69, 0.4);
+}
+
+.add-category-input button:first-of-type:hover:enabled {
+  background-color: rgba(40, 167, 69, 0.5);
+}
+
+.add-category-input button:last-of-type {
+  background-color: rgba(220, 53, 69, 0.3); /* Red cancel button */
+  border: 1px solid rgba(220, 53, 69, 0.4);
+}
+
+.add-category-input button:last-of-type:hover {
+  background-color: rgba(220, 53, 69, 0.5);
 }

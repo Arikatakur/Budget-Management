@@ -9,7 +9,11 @@ const Transaction = sequelize.define('Transaction', {
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+        model: 'users', 
+        key: 'id'
+    }
   },
   amount: {
     type: DataTypes.FLOAT,
@@ -25,7 +29,11 @@ const Transaction = sequelize.define('Transaction', {
   },
   categoryId: {
     type: DataTypes.INTEGER,
-    allowNull: true
+    allowNull: false, 
+    references: {
+        model: 'categories', 
+        key: 'id'
+    }
   },
   type: {
   type: DataTypes.ENUM('income', 'expense'),

@@ -20,6 +20,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/suggestions', require('./routes/suggestionRoutes'));
+app.use('/api/categories', require('./routes/categoryRoutes'));
+
 
 sequelize.sync({ alter: true }).then(() => {
   const PORT = process.env.PORT || 3000;

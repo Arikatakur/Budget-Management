@@ -1,28 +1,41 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
 const AISuggestion = sequelize.define('AISuggestion', {
-  suggestionText: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  response: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  dateGenerated: {
-    type: DataTypes.DATEONLY,
-    defaultValue: DataTypes.NOW,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Users',
-      key: 'id',
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-    onDelete: 'SET NULL',
-    onUpdate: 'CASCADE',
-  },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'users', 
+            key: 'id'
+        }
+    },
+    prompt: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    response: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+
+    
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
+    }
+}, {
+    tableName: 'AISuggestions',
+    
+    timestamps: true,
+    
+    updatedAt: false
 });
 
 module.exports = AISuggestion;

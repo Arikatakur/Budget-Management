@@ -54,7 +54,6 @@ textarea.form-control::placeholder {
 textarea.form-control:focus {
   border-color: #ffffff;
   background-color: rgba(255, 255, 255, 0.2);
-  outline: none;
 }
 
 .button-group {
@@ -94,11 +93,10 @@ button:disabled {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px; /* Adds space between the spinner and the text */
-  margin: 20px auto; /* Provides overall spacing */
+  gap: 12px; 
+  margin: 20px auto;
 }
 .spinner {
-  /* This element is now only the spinning circle */
   border: 4px solid rgba(255, 255, 255, 0.2);
   border-left-color: #ffffff;
   border-radius: 50%;
@@ -135,7 +133,6 @@ button:disabled {
   border-radius: 8px;
   border: 1px solid rgba(229, 62, 62, 0.4);
   text-align: center;
-  width: 100%;
 }
 
 .ai-response, .ai-history {

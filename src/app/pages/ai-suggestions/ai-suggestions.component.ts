@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { forkJoin, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AiService } from '../../services/ai.service';
 import { UserService } from '../../services/user.service';
 import { TransactionService } from '../../services/transaction.service';
+
+import { AISuggestion } from '../../core/models/ai-suggestion.model';
 import { User } from '../../core/models/user.model';
 import { Transaction } from '../../core/models/transaction.model';
 
@@ -23,8 +25,9 @@ export class AiSuggestionsComponent implements OnInit {
   isLoading: boolean = false;
   error: string | null = null;
   isCustom: boolean = false;
-  pastSuggestions: any[] = [];
   expandedIndex: number | null = null;
+
+  pastSuggestions: AISuggestion[] = [];
 
   private currentUser: User | null = null;
 
@@ -39,7 +42,7 @@ export class AiSuggestionsComponent implements OnInit {
       next: (user) => {
         this.currentUser = user;
         if (user?.id) {
-          this.loadPastSuggestions(user.id);
+          this.loadPastSuggestions(String(user.id));
         }
       },
       error: (err) => {
@@ -51,8 +54,10 @@ export class AiSuggestionsComponent implements OnInit {
 
   loadPastSuggestions(userId: string): void {
     this.aiService.getSuggestionHistory(userId).subscribe({
-      next: (suggestions) => {
-        this.pastSuggestions = suggestions.sort((a, b) => new Date(b.dateGenerated).getTime() - new Date(a.dateGenerated).getTime());
+      next: (suggestions: AISuggestion[]) => {
+        this.pastSuggestions = suggestions.sort((a, b) => 
+          new Date(b.dateGenerated).getTime() - new Date(a.dateGenerated).getTime()
+        );
       },
       error: (err) => {
         console.error('Failed to load past suggestions', err);
@@ -78,7 +83,7 @@ export class AiSuggestionsComponent implements OnInit {
       return "No transaction data available for this period.";
     }
     return transactions
-      .map(t => `- On ${new Date(t.date).toLocaleDateString()}, the user ${t.type === 'expense' ? 'spent' : 'received'} $${t.amount.toFixed(2)}${t.description ? ' for ' + t.description : ''}${t.categoryId ? ' (category: ' + t.categoryId + ')' : ''}.`)
+      .map(t => `- On ${new Date(t.date).toLocaleDateString()}, the user ${t.type === 'expense' ? 'spent' : 'received'} $${t.amount.toFixed(2)}${t.description ? ' for ' + t.description : ''}${t.categoryId ? ' (category ID: ' + t.categoryId + ')' : ''}.`)
       .join('\n');
   }
 
@@ -90,6 +95,7 @@ export class AiSuggestionsComponent implements OnInit {
     this.isLoading = true;
     this.error = null;
     this.aiResponse = '';
+    
     this.transactionService.getTransactions().pipe(
       catchError(err => {
         console.error('Failed to fetch transactions:', err);
@@ -107,7 +113,6 @@ export class AiSuggestionsComponent implements OnInit {
       if (this.isCustom) {
         finalPrompt = `${promptContext}\n\nBased on the data above, please answer the user's question concisely and in plain text: \"${this.userPrompt}\"`;
       } else {
-        // Balanced & Clean Prompt
         finalPrompt = `
         ${promptContext}
 
@@ -127,16 +132,16 @@ export class AiSuggestionsComponent implements OnInit {
         POTENTIAL SAVINGS: State the estimated total yearly savings if the plan is followed.
         `;
       }
-      this.callAiService(finalPrompt, user.id);
+      this.callAiService(finalPrompt, String(user.id));
     });
   }
 
   private callAiService(prompt: string, userId: string): void {
     this.aiService.generateSuggestion(prompt, userId).subscribe({
-      next: (savedSuggestion) => {
+      next: (savedSuggestion: AISuggestion) => {
         this.aiResponse = savedSuggestion.response;
         this.isLoading = false;
-        this.loadPastSuggestions(userId); // Refresh history after new suggestion
+        this.loadPastSuggestions(userId); 
       },
       error: (err) => {
         this.error = 'An error occurred while communicating with the AI. Please try again.';

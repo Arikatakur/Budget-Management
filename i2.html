@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liquid-Glass Dock (any size)</title>
+
+<link rel="stylesheet" href="https://unpkg.com/normalize.css">
+<style>
+  :root{
+    --width:336;      /* updated live by JS */
+    --height:96;
+    --radius:16;
+    --frost:0.05;
+    --output-blur:0.2;
+  }
+
+  html,body{margin:0;height:100%}
+  body{
+    background:url("https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1740&q=80")
+              center/cover fixed no-repeat;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'SF Pro Text','Helvetica Neue',Helvetica,Arial,sans-serif;
+    overflow:hidden;
+  }
+
+  .effect{
+    width:calc(var(--width)*1px);
+    height:calc(var(--height)*1px);
+    border-radius:calc(var(--radius)*1px);
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:light-dark(hsl(0 0% 100%/var(--frost)),hsl(0 0% 0%/var(--frost)));
+    backdrop-filter:url(#filter) blur(1px);
+    box-shadow:
+      0 0 2px 1px light-dark(color-mix(in oklch,canvasText,#0000 85%),color-mix(in oklch,canvasText,#0000 65%)) inset,
+      0 0 10px 4px light-dark(color-mix(in oklch,canvasText,#0000 90%),color-mix(in oklch,canvasText,#0000 85%)) inset,
+      0 8px 24px rgba(0,0,0,.12),0 16px 56px rgba(0,0,0,.08);
+    opacity:0;pointer-events:none;
+  }
+  .nav-wrap{width:100%;height:100%;overflow:hidden;border-radius:inherit}
+  nav{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;height:100%}
+  nav img{width:64px;aspect-ratio:1}
+</style>
+</head>
+
+<body>
+  <div class="effect">
+    <div class="nav-wrap">
+      <nav>
+        <img src="https://assets.codepen.io/605876/finder.png" alt="finder">
+        <img src="https://assets.codepen.io/605876/safari.png" alt="safari">
+        <img src="https://assets.codepen.io/605876/calendar.png" alt="calendar">
+        <img src="https://assets.codepen.io/605876/spotify.png" alt="spotify">
+      </nav>
+    </div>
+
+    <!-- Filter lives inside the glass so its 0,0 = top-left of panel -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="filter">
+      <defs>
+        <filter id="filter"
+                x="0" y="0" width="100%" height="100%"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB">
+          <feImage preserveAspectRatio="none"
+                   x="0" y="0" width="100%" height="100%" result="map"/>
+          <feDisplacementMap id="redchannel"   in="SourceGraphic" in2="map"
+                             xChannelSelector="R" yChannelSelector="G" result="dispRed"/>
+          <feColorMatrix in="dispRed" type="matrix"
+                         values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red"/>
+          <feDisplacementMap id="greenchannel" in="SourceGraphic" in2="map"
+                             xChannelSelector="R" yChannelSelector="G" result="dispGreen"/>
+          <feColorMatrix in="dispGreen" type="matrix"
+                         values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green"/>
+          <feDisplacementMap id="bluechannel"  in="SourceGraphic" in2="map"
+                             xChannelSelector="R" yChannelSelector="G" result="dispBlue"/>
+          <feColorMatrix in="dispBlue" type="matrix"
+                         values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue"/>
+          <feBlend in="red" in2="green" mode="screen" result="rg"/>
+          <feBlend in="rg"  in2="blue"  mode="screen" result="output"/>
+          <feGaussianBlur in="output" stdDeviation="0.7"/>
+        </filter>
+      </defs>
+    </svg>
+  </div>
+
+<script type="module">
+import gsap from 'https://cdn.skypack.dev/gsap@3.13.0';
+
+const cfg={
+  width:400,height:150,radius:50,frost:0.10,
+  border:0.10,lightness:50,blur:5,
+  displace:0.9,scale:50,r:0,g:10,b:1,
+  x:'R',y:'B'
+};
+
+/* build RGB displacement map to fit *exactly* inside the panel */
+function buildMap(){
+  const pad=Math.min(cfg.width,cfg.height)*cfg.border*0.5;
+  const svg=
+`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${cfg.width} ${cfg.height}'>
+   <defs>
+     <linearGradient id='red'  x1='100%' y1='0%' x2='0%' y2='0%'>
+       <stop offset='0%' stop-color='#0000'/><stop offset='100%' stop-color='red'/>
+     </linearGradient>
+     <linearGradient id='blue' x1='0%' y1='0%' x2='0%' y2='100%'>
+       <stop offset='0%' stop-color='#0000'/><stop offset='100%' stop-color='blue'/>
+     </linearGradient>
+   </defs>
+   <rect width='100%' height='100%' fill='black'/>
+   <rect width='100%' height='100%' rx='${cfg.radius}' fill='url(#red)'/>
+   <rect width='100%' height='100%' rx='${cfg.radius}' fill='url(#blue)'
+         style='mix-blend-mode:difference'/>
+   <rect x='${pad}' y='${pad}'
+         width='${cfg.width-pad*2}' height='${cfg.height-pad*2}'
+         rx='${cfg.radius}'
+         fill='hsl(0 0% ${cfg.lightness}% / 0.93)'
+         style='filter:blur(${cfg.blur}px)'/>
+ </svg>`;
+  const uri=`data:image/svg+xml,${encodeURIComponent(svg)}`;
+
+  gsap.set('feImage',{attr:{
+    href:uri,
+    width:cfg.width,
+    height:cfg.height
+  }});
+}
+
+/* push size & filter parameters */
+function apply(){
+  gsap.set(':root',{
+    '--width':cfg.width,
+    '--height':cfg.height,
+    '--radius':cfg.radius,
+    '--frost':cfg.frost,
+    '--output-blur':cfg.displace
+  });
+  gsap.set('#filter', { attr:{ width: cfg.width, height: cfg.height } });
+
+  gsap.set('feDisplacementMap',{
+    attr:{scale:cfg.scale,
+          xChannelSelector:cfg.x,
+          yChannelSelector:cfg.y}
+  });
+  gsap.set('#redchannel'  ,{attr:{scale:cfg.scale+cfg.r}});
+  gsap.set('#greenchannel',{attr:{scale:cfg.scale+cfg.g}});
+  gsap.set('#bluechannel' ,{attr:{scale:cfg.scale+cfg.b}});
+  gsap.set('feGaussianBlur',{attr:{stdDeviation:cfg.displace}});
+}
+
+/* kick-off */
+buildMap();
+apply();
+gsap.to('.effect',{opacity:1,duration:0.4,ease:'power1.out'});
+
+/* expose for console testing */
+window.cfg=cfg;window.buildMap=buildMap;window.apply=apply;
+</script>
+</body>
+</html>
