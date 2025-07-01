@@ -8,9 +8,9 @@
 .bg-wrapper {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #1A1A4D 0%, #3D2C7A 50%, #1A1A4D 100%);
+  background: linear-gradient(90deg, #080045 0%, #005c6a 50%, #0000ff 100%);
   background-size: 200% 200%;
-  animation: bg-pan 18s ease-in-out infinite;
+  animation: bg-pan 30s ease-in-out infinite;
   overflow: hidden;
 }
 
