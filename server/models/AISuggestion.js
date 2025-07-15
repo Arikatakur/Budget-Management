@@ -31,10 +31,8 @@ const AISuggestion = sequelize.define('AISuggestion', {
         allowNull: false
     }
 }, {
-    tableName: 'AISuggestions',
-    
+    tableName: 'aisuggestions', 
     timestamps: true,
-    
     updatedAt: false
 });
 

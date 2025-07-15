@@ -35,11 +35,12 @@ header nav a {
   text-decoration: none;
   font-weight: 500;
   transition: background 0.3s, color 0.3s;
-  border-radius: 4px;
+  border-radius: 20px;
   padding: 8px 8px;
 }
 
 header nav a:hover {
   background: white;
   color: #2563eb;
+  border-radius: 20px;
 }

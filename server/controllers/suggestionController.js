@@ -40,10 +40,16 @@ exports.generateAndSaveSuggestion = async (req, res) => {
       }
     );
 
-    const aiResponseContent = response.data.choices[0].message.content;
+    
+    const aiResponseContent = response?.data?.choices?.[0]?.message?.content;
+
+    if (!aiResponseContent) {
+      console.error('Invalid or empty response from AI service:', response.data);
+      throw new Error('Failed to get a valid response from the AI service.');
+    }
 
     const savedSuggestion = await AISuggestion.create({
-      suggestionText: prompt,
+      prompt: prompt,
       response: aiResponseContent,
       userId: userId
     });
