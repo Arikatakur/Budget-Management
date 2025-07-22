@@ -27,14 +27,21 @@ export class MonthlyReportComponent implements OnChanges {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top' },
-      title: { display: true, text: 'Expenses by Category' }
+      legend: { position: 'top', labels: { color: '#ffffff' } },
+        
+      title: { display: true, text: 'Expenses by Category', color: '#ffffff', font: { size: 14 }   }
     },
     scales: {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: (value: any) => '$' + value.toLocaleString()
+          callback: (value: any) => '$' + value.toLocaleString(),
+          color: '#bcbcbcff',
+        }
+      },
+      x: {
+        ticks: {
+          color: '#bcbcbcff',
         }
       }
     }
