@@ -1,5 +1,4 @@
 <div class="monthly-report space-y-6">
-  <!-- Bar Chart -->
   <div style="height: 400px;">
     <canvas baseChart
       [data]="chartData"
@@ -7,8 +6,7 @@
       [type]="'bar'">
     </canvas>
   </div>
-
-  <!-- Transactions Table -->
+  
   <div class="table-wrapper">
     <h3>Monthly Transactions - {{ selectedMonth | date: 'MMMM yyyy' }}</h3>
     <table class="report-table">

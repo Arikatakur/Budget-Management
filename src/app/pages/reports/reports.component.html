@@ -1,5 +1,5 @@
 <div class="reports-container">
-  <!-- Header -->
+  
   <div class="header">
     <div>
       <h2>Reports & Analytics</h2>
@@ -11,7 +11,6 @@
     </div>
   </div>
 
-  <!-- Controls -->
   <div class="controls">
     <div class="controls-grid">
       <div>
@@ -40,7 +39,6 @@
     </div>
   </div>
 
-  <!-- Summary Cards -->
   <div class="summary-cards">
     <div class="summary-card">
       <p class="label">Monthly Income</p>
@@ -62,7 +60,6 @@
     </div>
   </div>
 
-  <!-- Report Content Placeholder -->
   <ng-container *ngIf="reportType === 'monthly'">
     <app-monthly-report [selectedMonth]="selectedMonth"></app-monthly-report>
   </ng-container>

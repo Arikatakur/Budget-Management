@@ -51,17 +51,14 @@ export class MonthlyReportComponent implements OnChanges {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
-    // First load categories
     this.categoryService.getCategories(userId).subscribe({
       next: (cats) => {
         this.categories = cats;
 
-        // Then load transactions
         this.transactionService.getTransactions().subscribe((data) => {
           const filtered = data.filter(t => t.date?.startsWith(this.selectedMonth));
           this.transactions = filtered;
 
-          // Compute totals using categoryId → category name
           this.categoryTotals = filtered.reduce((acc, t) => {
             if (t.type === 'expense') {
               const categoryName = this.getCategoryName(t.categoryId);
@@ -70,7 +67,6 @@ export class MonthlyReportComponent implements OnChanges {
             return acc;
           }, {} as Record<string, number>);
 
-          // Set chart data
           this.chartData = {
             labels: Object.keys(this.categoryTotals),
             datasets: [
