@@ -23,15 +23,15 @@ export class DashboardComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
 
   public chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: <const>'bottom'
+    responsive: true,
+    plugins: {
+      legend: {
+        position: <const>'bottom'
+      }
     }
-  }
-};
+  };
 
-  public pieChartData: ChartData<'pie'> | undefined ;
+  public pieChartData: ChartData<'pie'> | undefined;
 
   constructor(
     private transactionService: TransactionService,
@@ -48,12 +48,18 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             data: [this.income, this.expenses],
-            backgroundColor: ['#36A2EB', '#FF6384']
+            backgroundColor: ['#36A2EB', '#FF6384'],
+            borderColor: ['#36A2EB', '#FF6384'],
+            borderWidth: 2,
+
+            hoverOffset: 0,
+            hoverBackgroundColor: ['#36A2EB', '#FF6384'],
+            hoverBorderColor: ['#36A2EB', '#FF6384']
           }
         ]
-      };    
+      };
     });
-    
+
 
 
     this.userService.getCurrentUser().subscribe({
