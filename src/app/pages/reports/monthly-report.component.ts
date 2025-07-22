@@ -2,7 +2,11 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
+
 import { TransactionService } from '../../services/transaction.service';
+import { CategoryService } from '../../services/category.service';
+import { Transaction } from '../../core/models/transaction.model';
+import { Category } from '../../core/models/category.model';
 
 @Component({
   selector: 'app-monthly-report',
@@ -13,7 +17,8 @@ import { TransactionService } from '../../services/transaction.service';
 })
 export class MonthlyReportComponent implements OnChanges {
   @Input() selectedMonth: string = '';
-  transactions: any[] = [];
+  transactions: Transaction[] = [];
+  categories: Category[] = [];
   categoryTotals: Record<string, number> = {};
   public Math = Math;
 
@@ -35,38 +40,59 @@ export class MonthlyReportComponent implements OnChanges {
     }
   };
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(
+    private transactionService: TransactionService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnChanges(): void {
     if (!this.selectedMonth) return;
 
-    this.transactionService.getTransactions().subscribe((data) => {
-      const filtered = data.filter(t => t.date?.startsWith(this.selectedMonth));
-      this.transactions = filtered;
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
 
-      // Compute category totals
-      this.categoryTotals = filtered.reduce((acc, t) => {
-        if (t.type === 'expense') {
-          const categoryName = typeof t.category === 'object' ? t.category?.name : t.category;
-          acc[categoryName] = (acc[categoryName] || 0) + Math.abs(t.amount);
-        }
-        return acc;
-      }, {} as Record<string, number>);
+    // First load categories
+    this.categoryService.getCategories(userId).subscribe({
+      next: (cats) => {
+        this.categories = cats;
 
-      // Set chart data
-      this.chartData = {
-        labels: Object.keys(this.categoryTotals),
-        datasets: [
-          {
-            label: 'Expenses by Category',
-            data: Object.values(this.categoryTotals),
-            backgroundColor: [
-              '#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6',
-              '#06B6D4', '#F97316', '#84CC16'
+        // Then load transactions
+        this.transactionService.getTransactions().subscribe((data) => {
+          const filtered = data.filter(t => t.date?.startsWith(this.selectedMonth));
+          this.transactions = filtered;
+
+          // Compute totals using categoryId → category name
+          this.categoryTotals = filtered.reduce((acc, t) => {
+            if (t.type === 'expense') {
+              const categoryName = this.getCategoryName(t.categoryId);
+              acc[categoryName] = (acc[categoryName] || 0) + Math.abs(t.amount);
+            }
+            return acc;
+          }, {} as Record<string, number>);
+
+          // Set chart data
+          this.chartData = {
+            labels: Object.keys(this.categoryTotals),
+            datasets: [
+              {
+                label: 'Expenses by Category',
+                data: Object.values(this.categoryTotals),
+                backgroundColor: [
+                  '#3B82F6', '#EF4444', '#10B981', '#F59E0B',
+                  '#8B5CF6', '#06B6D4', '#F97316', '#84CC16'
+                ]
+              }
             ]
-          }
-        ]
-      };
+          };
+        });
+      },
+      error: (err) => console.error('Failed to load categories:', err)
     });
+  }
+
+  getCategoryName(id: number | string | undefined): string {
+    if (id === undefined || id === null) return 'Uncategorized';
+    const category = this.categories.find(c => c.id == id);
+    return category ? category.name : 'Uncategorized';
   }
 }

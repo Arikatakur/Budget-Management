@@ -25,7 +25,8 @@
         <tr *ngFor="let t of transactions">
           <td>{{ t.date | date: 'MMM d, yyyy' }}</td>
           <td>{{ t.description }}</td>
-          <td>{{ t.category }}</td>
+          <td>{{ getCategoryName(t.categoryId) }}</td>
+
           <td>
             <span [ngClass]="{
               'type-income': t.type === 'income',
