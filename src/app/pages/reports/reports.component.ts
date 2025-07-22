@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { format, subMonths, endOfMonth } from 'date-fns';
-import { ReprortsDataService } from '../../services/reports.service';
+import { TransactionService } from '../../services/transaction.service';
 import { MonthlyReportComponent } from './monthly-report.component';
 import { CategoryReportComponent } from './category-report.component';
 
@@ -29,7 +29,7 @@ export class ReportsComponent implements OnInit {
   categoryData: Record<string, number> = {};
   transactions: any[] = [];
 
-  constructor(private ReportsService: ReprortsDataService) {}
+constructor(private transactionService: TransactionService) {}
 
   ngOnInit(): void {
     this.generateMonthList();
@@ -43,11 +43,38 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-  loadData(): void {
-    this.monthlyData = this.ReportsService.getMonthlyData(this.selectedMonth);
-    this.categoryData = this.ReportsService.getCategoryData();
-    this.transactions = this.ReportsService.getTransactions();
-  }
+loadData(): void {
+  const userId = localStorage.getItem('userId');
+  if (!userId) return;
+
+  this.transactionService.getTransactions().subscribe((data) => {
+    this.transactions = data.filter(t => t.date?.startsWith(this.selectedMonth));
+
+    // Calculate monthly income and expenses
+    const income = this.transactions
+      .filter(t => t.type === 'income')
+      .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+
+    const expenses = this.transactions
+      .filter(t => t.type === 'expense')
+      .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+
+    this.monthlyData = { income, expenses };
+
+    // Calculate category data for expenses
+    this.categoryData = this.transactions
+      .filter(t => t.type === 'expense')
+      .reduce((acc, t) => {
+        const category =
+          typeof t.category === 'object' ? t.category?.name :
+          t.category || 'Uncategorized';
+
+        acc[category] = (acc[category] || 0) + Math.abs(t.amount);
+        return acc;
+      }, {} as Record<string, number>);
+  });
+}
+
 
   onMonthChange(): void {
     this.loadData();
