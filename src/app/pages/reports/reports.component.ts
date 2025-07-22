@@ -5,6 +5,9 @@ import { format, subMonths, endOfMonth } from 'date-fns';
 import { TransactionService } from '../../services/transaction.service';
 import { MonthlyReportComponent } from './monthly-report.component';
 import { CategoryReportComponent } from './category-report.component';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
 
 
 @Component({
@@ -81,23 +84,34 @@ loadData(): void {
   }
 
   exportToPDF(): void {
-    const reportData = {
-      month: this.selectedMonth,
-      income: this.monthlyData.income,
-      expenses: this.monthlyData.expenses,
-      balance: this.monthlyData.income - this.monthlyData.expenses,
-      categories: this.categoryData
-    };
+  const doc = new jsPDF();
 
-    const dataStr = JSON.stringify(reportData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-    const exportFileDefaultName = `financial-report-${this.selectedMonth}.json`;
+  const reportTitle = `Financial Report for ${this.selectedMonth}`;
+  const reportPeriod = this.getReportPeriod();
+  const netSavings = this.getNetSavings();
+  const isPositive = this.isSavingsPositive();
 
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  }
+  doc.setFontSize(16);
+  doc.text(reportTitle, 10, 10);
+  doc.setFontSize(12);
+  doc.text(`Period: ${reportPeriod}`, 10, 20);
+  doc.text(`Income: $${this.monthlyData.income.toLocaleString()}`, 10, 30);
+  doc.text(`Expenses: $${this.monthlyData.expenses.toLocaleString()}`, 10, 40);
+  doc.text(`Net Savings: $${netSavings.toLocaleString()}`, 10, 50);
+
+  doc.setTextColor(isPositive ? 'green' : 'red');
+  doc.text(isPositive ? 'Positive Savings' : 'Negative Savings', 10, 60);
+  doc.setTextColor('black');
+
+
+  autoTable(doc, {
+    startY: 70,
+    head: [['Category', 'Amount']],
+    body: Object.entries(this.categoryData).map(([category, amount]) => [category, `$${amount.toLocaleString()}`])
+  });
+
+  doc.save(`financial-report-${this.selectedMonth}.pdf`);
+}
 
   exportToCSV(): void {
     const csvData = [
