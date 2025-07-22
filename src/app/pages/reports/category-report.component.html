@@ -1,0 +1,38 @@
+<div class="space-y-6">
+  <!-- Pie Chart -->
+  <div class="card">
+    <h3 class="section-title">Spending by Category</h3>
+    <div class="chart-container">
+      <canvas baseChart
+        [data]="chartData"
+        [options]="chartOptions"
+        [type]="'pie'">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="card">
+    <h3 class="section-title">Category Breakdown</h3>
+    <div class="space-y-4">
+      <div *ngFor="let cat of sortedCategoryData; let i = index" class="breakdown-item">
+        <div class="item-left">
+          <div
+            class="color-dot"
+            [style.backgroundColor]="colors[i % colors.length]">
+          </div>
+          <div>
+            <p class="category-name">{{ cat.key }}</p>
+            <p class="subtext">{{ countTransactions(cat.key) }} transactions</p>
+          </div>
+        </div>
+        <div>
+          <p class="amount">${{ cat.value | number:'1.0-0' }}</p>
+          <p class="subtext">
+            {{ (cat.value / totalExpenses * 100) | number:'1.1-1' }}% of total
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

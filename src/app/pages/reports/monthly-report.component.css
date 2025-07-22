@@ -1,0 +1,48 @@
+.table-wrapper {
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+    text-align: center;
+}  
+
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ffffff;
+}
+
+.report-table th, .report-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+.type-income {
+  background: rgba(255, 255, 255, 0.15);
+  color: #0fef61;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.type-expense {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #dc2626;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.text-green {
+  color: #27ff76;
+}
+
+.text-red {
+  color: #ff1d1d;
+}

@@ -1,1 +1,73 @@
-<p>reports works!</p>
+<div class="reports-container">
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h2>Reports & Analytics</h2>
+      <p class="subtitle">Comprehensive financial reports and data export</p>
+    </div>
+    <div class="export-buttons">
+      <button (click)="exportToPDF()" class="btn btn-blue">Export PDF</button>
+      <button (click)="exportToCSV()" class="btn btn-green">Export CSV</button>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="controls-grid">
+      <div>
+        <label>Report Type</label>
+        <select [(ngModel)]="reportType">
+          <option value="monthly">Monthly Report</option>
+          <option value="category">Category Breakdown</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Select Month</label>
+        <select [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+          <option *ngFor="let month of months" [value]="month">
+            {{ month | date: 'MMMM yyyy' }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>Report Period</label>
+        <div class="period-text">
+          {{ getReportPeriod() }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="summary-card">
+      <p class="label">Monthly Income</p>
+      <p class="value value-green">
+        ${{ monthlyData.income | number:'1.0-0' }}
+      </p>
+    </div>
+    <div class="summary-card">
+      <p class="label">Monthly Expenses</p>
+      <p class="value value-red">
+        ${{ monthlyData.expenses | number:'1.0-0' }}
+      </p>
+    </div>
+    <div class="summary-card">
+      <p class="label">Net Savings</p>
+      <p [ngClass]="isSavingsPositive() ? 'value-green' : 'value-red'" class="value">
+        ${{ getNetSavings() | number:'1.0-0' }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Report Content Placeholder -->
+  <ng-container *ngIf="reportType === 'monthly'">
+    <app-monthly-report [selectedMonth]="selectedMonth"></app-monthly-report>
+  </ng-container>
+
+  <ng-container *ngIf="reportType === 'category'">
+    <app-category-report></app-category-report>
+  </ng-container>
+</div>

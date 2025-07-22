@@ -1,0 +1,48 @@
+<div class="monthly-report space-y-6">
+  <!-- Bar Chart -->
+  <div style="height: 400px;">
+    <canvas baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      [type]="'bar'">
+    </canvas>
+  </div>
+
+  <!-- Transactions Table -->
+  <div class="table-wrapper">
+    <h3>Monthly Transactions - {{ selectedMonth | date: 'MMMM yyyy' }}</h3>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Type</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.date | date: 'MMM d, yyyy' }}</td>
+          <td>{{ t.description }}</td>
+          <td>{{ t.category }}</td>
+          <td>
+            <span [ngClass]="{
+              'type-income': t.type === 'income',
+              'type-expense': t.type === 'expense'
+            }">
+              {{ t.type }}
+            </span>
+          </td>
+          <td [ngClass]="t.type === 'income' ? 'text-green' : 'text-red'">
+            {{ t.type === 'income' ? '+' : '' }}${{ Math.abs(t.amount) | number:'1.0-0' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="transactions.length === 0" class="text-center">
+      <p>No transactions found for this month.</p>
+    </div>
+  </div>
+</div>
