@@ -28,14 +28,15 @@ export class CategoryReportComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'right',
+      legend: {
+        position: 'right',
         labels: {
           color: '#ffffff',
           font: {
             size: 14,
           },
         },
-       },
+      },
     }
   };
 
@@ -45,60 +46,64 @@ export class CategoryReportComponent implements OnInit {
   ];
 
   constructor(private transactionService: TransactionService,
-      private categoryService: CategoryService
-  ) {}
+    private categoryService: CategoryService
+  ) { }
 
-  
- ngOnInit(): void {
-  const userId = localStorage.getItem('userId');
-  if (!userId) return;
 
-  this.categoryService.getCategories(userId).subscribe(categories => {
-    this.categories = categories;
-    this.categoryMap = Object.fromEntries(categories.map(c => [c.id, c.name]));
+  ngOnInit(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
 
-    this.transactionService.getTransactions().subscribe(data => {
-      this.transactions = data.filter(t => t.type === 'expense');
+    this.categoryService.getCategories(userId).subscribe(categories => {
+      this.categories = categories;
+      this.categoryMap = Object.fromEntries(categories.map(c => [c.id, c.name]));
 
-      this.categoryData = this.transactions.reduce((acc, t) => {
-        const catName =
-          typeof t.category === 'object'
-            ? t.category?.name
-            : this.categoryMap[t.categoryId!] || 'Uncategorized';
+      this.transactionService.getTransactions().subscribe(data => {
+        this.transactions = data.filter(t => t.type === 'expense');
 
-        acc[catName] = (acc[catName] || 0) + Math.abs(t.amount);
-        return acc;
-      }, {} as Record<string, number>);
+        this.categoryData = this.transactions.reduce((acc, t) => {
+          const catName =
+            typeof t.category === 'object'
+              ? t.category?.name
+              : this.categoryMap[t.categoryId!] || 'Uncategorized';
 
-      this.totalExpenses = Object.values(this.categoryData).reduce((a, b) => a + b, 0);
+          acc[catName] = (acc[catName] || 0) + Math.abs(t.amount);
+          return acc;
+        }, {} as Record<string, number>);
 
-      this.sortedCategoryData = Object.entries(this.categoryData)
-        .map(([key, value]) => ({ key, value }))
-        .sort((a, b) => b.value - a.value);
+        this.totalExpenses = Object.values(this.categoryData).reduce((a, b) => a + b, 0);
 
-      const labels = Object.keys(this.categoryData);
-      const dataValues = Object.values(this.categoryData);
+        this.sortedCategoryData = Object.entries(this.categoryData)
+          .map(([key, value]) => ({ key, value }))
+          .sort((a, b) => b.value - a.value);
 
-      const backgroundColors = labels.map(label => {
-        const index = labels.indexOf(label);
-        return this.colors[index % this.colors.length];
+        const labels = Object.keys(this.categoryData);
+        const dataValues = Object.values(this.categoryData);
+
+        const backgroundColors = labels.map(label => {
+          const index = labels.indexOf(label);
+          return this.colors[index % this.colors.length];
+        });
+
+        this.chartData = {
+          labels,
+          datasets: [{
+            data: dataValues,
+            backgroundColor: backgroundColors,
+            borderColor: backgroundColors,
+            borderWidth: 2,
+
+            hoverOffset: 0,
+            hoverBorderColor: backgroundColors,
+            hoverBackgroundColor: backgroundColors,
+          }]
+        };
       });
-
-      this.chartData = {
-        labels,
-        datasets: [{
-          data: dataValues,
-          backgroundColor: backgroundColors,
-          borderColor: backgroundColors,
-          borderWidth: 2
-        }]
-      };
     });
-  });
-}
+  }
 
 
-    countTransactions(categoryName: string): number {
+  countTransactions(categoryName: string): number {
     return this.transactions.filter(t => {
       const catName =
         typeof t.category === 'object'
