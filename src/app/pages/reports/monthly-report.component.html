@@ -1,11 +1,9 @@
 <div class="monthly-report-content glass-card">
-  <!-- Chart -->
   <div class="chart-container">
     <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="'bar'">
     </canvas>
   </div>
 
-  <!-- Table -->
   <div class="table-wrapper">
     <h3>Monthly Transactions - {{ selectedMonth | date: 'MMMM yyyy' }}</h3>
     <table class="report-table" *ngIf="transactions.length > 0; else noTransactions">

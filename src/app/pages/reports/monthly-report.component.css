@@ -1,14 +1,12 @@
-/* Base Container styling from X Design */
 .reports-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
   box-sizing: border-box;
-  padding-top: 115px; /* For fixed top navbar */
+  padding-top: 115px; 
 }
 
-/* Core Glassmorphism Card from X Design */
 .glass-card {
   padding: 2rem;
   background: rgba(0, 0, 0, 0.226);
@@ -20,7 +18,6 @@
   color: #ffffff;
 }
 
-/* Header Card Specifics */
 .header-card {
   display: flex;
   justify-content: space-between;
@@ -29,7 +26,6 @@
   gap: 1rem;
 }
 
-/* Typography from X Design */
 h2 {
   text-align: left;
   margin: 0;
@@ -41,7 +37,7 @@ h2 {
 h3 {
   font-size: 1.5rem;
   color: #ffffff;
-  margin-bottom: 1.5rem; /* Added more margin */
+  margin-bottom: 1.5rem; 
   font-weight: 600;
   text-align: center;
 }
@@ -53,13 +49,12 @@ h3 {
 
 label {
   font-size: 1rem;
-  margin-bottom: 8px; /* Added margin for spacing */
+  margin-bottom: 8px; 
   color: #ffffff;
   padding-left: 9px;
-  display: block; /* Ensures margin is applied */
+  display: block; 
 }
 
-/* Export Buttons using X Design principles */
 .export-buttons {
   display: flex;
   gap: 1rem;
@@ -79,7 +74,7 @@ label {
 }
 
 .btn-pdf {
-  background-color: rgba(37, 99, 235, 0.3); /* Translucent Blue */
+  background-color: rgba(37, 99, 235, 0.3); 
   border-color: rgba(37, 99, 235, 0.4);
 }
 .btn-pdf:hover {
@@ -88,7 +83,7 @@ label {
 }
 
 .btn-csv {
-  background-color: rgba(22, 163, 74, 0.3); /* Translucent Green */
+  background-color: rgba(22, 163, 74, 0.3); 
   border-color: rgba(22, 163, 74, 0.4);
 }
 .btn-csv:hover {
@@ -96,7 +91,6 @@ label {
   border-color: rgba(22, 163, 74, 0.6);
 }
 
-/* Controls Grid */
 .controls-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -104,14 +98,13 @@ label {
   color: #ffffff;
 }
 
-/* Form Controls styled like X Design */
 select {
   background-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
   width: 100%;
   padding: 0.8rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px; /* Rounded like other inputs */
+  border-radius: 50px; 
   font-size: 1rem;
   transition: border 0.3s ease, background-color 0.3s ease;
   box-sizing: border-box;
@@ -137,12 +130,11 @@ select option {
   border-radius: 50px;
   font-size: 1rem;
   box-sizing: border-box;
-  min-height: 48px; /* Match select height */
+  min-height: 48px; 
   display: flex;
   align-items: center;
 }
 
-/* Summary Cards */
 .summary-cards-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -150,7 +142,7 @@ select option {
 }
 
 .summary-card {
-  padding: 1.5rem; /* Slightly less padding for smaller cards */
+  padding: 1.5rem; 
   text-align: center;
 }
 
@@ -166,12 +158,10 @@ select option {
   margin: 0;
 }
 
-/* --- NEW STYLES FOR MONTHLY REPORT TABLE --- */
-
 .monthly-report-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Consistent gap */
+  gap: 2rem; 
 }
 
 .chart-container {
@@ -180,7 +170,7 @@ select option {
 }
 
 .table-wrapper {
-  overflow-x: auto; /* For responsive tables */
+  overflow-x: auto;
 }
 
 .report-table {
@@ -191,8 +181,8 @@ select option {
 
 .report-table th,
 .report-table td {
-  padding: 1rem; /* Generous padding */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
+  padding: 1rem; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
   text-align: left;
   vertical-align: middle;
 }
@@ -221,12 +211,12 @@ select option {
 }
 
 .type-income {
-  background-color: rgba(46, 249, 120, 0.15); /* Translucent version of value-green */
+  background-color: rgba(46, 249, 120, 0.15); 
   color: #2ef978;
 }
 
 .type-expense {
-  background-color: rgba(255, 37, 37, 0.15); /* Translucent version of value-red */
+  background-color: rgba(255, 37, 37, 0.15); 
   color: #ff2525;
 }
 
@@ -246,9 +236,7 @@ select option {
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* --- END OF NEW STYLES --- */
 
-/* Semantic Colors from X Design */
 .value-green {
   color: #2ef978;
 }
