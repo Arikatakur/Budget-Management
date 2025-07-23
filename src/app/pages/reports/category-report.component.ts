@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
@@ -13,8 +13,9 @@ import { Category } from '../../core/models/category.model';
   templateUrl: './category-report.component.html',
   styleUrls: ['./category-report.component.css']
 })
+export class CategoryReportComponent implements OnChanges {
+  @Input() month: string = '';
 
-export class CategoryReportComponent implements OnInit {
   transactions: any[] = [];
   categoryData: Record<string, number> = {};
   categories: Category[] = [];
@@ -32,11 +33,9 @@ export class CategoryReportComponent implements OnInit {
         position: 'right',
         labels: {
           color: '#ffffff',
-          font: {
-            size: 14,
-          },
-        },
-      },
+          font: { size: 14 }
+        }
+      }
     }
   };
 
@@ -45,12 +44,14 @@ export class CategoryReportComponent implements OnInit {
     '#8B5CF6', '#06B6D4', '#F97316', '#84CC16', '#EC4899', '#6366F1'
   ];
 
-  constructor(private transactionService: TransactionService,
+  constructor(
+    private transactionService: TransactionService,
     private categoryService: CategoryService
-  ) { }
+  ) {}
 
+  ngOnChanges(): void {
+    if (!this.month) return;
 
-  ngOnInit(): void {
     const userId = localStorage.getItem('userId');
     if (!userId) return;
 
@@ -59,14 +60,12 @@ export class CategoryReportComponent implements OnInit {
       this.categoryMap = Object.fromEntries(categories.map(c => [c.id, c.name]));
 
       this.transactionService.getTransactions().subscribe(data => {
-        this.transactions = data.filter(t => t.type === 'expense');
+        this.transactions = data.filter(t => t.type === 'expense' && t.date?.startsWith(this.month));
 
         this.categoryData = this.transactions.reduce((acc, t) => {
-          const catName =
-            typeof t.category === 'object'
-              ? t.category?.name
-              : this.categoryMap[t.categoryId!] || 'Uncategorized';
-
+          const catName = typeof t.category === 'object'
+            ? t.category?.name
+            : this.categoryMap[t.categoryId!] || 'Uncategorized';
           acc[catName] = (acc[catName] || 0) + Math.abs(t.amount);
           return acc;
         }, {} as Record<string, number>);
@@ -79,11 +78,7 @@ export class CategoryReportComponent implements OnInit {
 
         const labels = Object.keys(this.categoryData);
         const dataValues = Object.values(this.categoryData);
-
-        const backgroundColors = labels.map(label => {
-          const index = labels.indexOf(label);
-          return this.colors[index % this.colors.length];
-        });
+        const backgroundColors = labels.map((_, i) => this.colors[i % this.colors.length]);
 
         this.chartData = {
           labels,
@@ -92,7 +87,6 @@ export class CategoryReportComponent implements OnInit {
             backgroundColor: backgroundColors,
             borderColor: backgroundColors,
             borderWidth: 2,
-
             hoverOffset: 0,
             hoverBorderColor: backgroundColors,
             hoverBackgroundColor: backgroundColors,
@@ -102,13 +96,11 @@ export class CategoryReportComponent implements OnInit {
     });
   }
 
-
   countTransactions(categoryName: string): number {
     return this.transactions.filter(t => {
-      const catName =
-        typeof t.category === 'object'
-          ? t.category?.name
-          : this.categoryMap[t.categoryId!] || 'Uncategorized';
+      const catName = typeof t.category === 'object'
+        ? t.category?.name
+        : this.categoryMap[t.categoryId!] || 'Uncategorized';
       return catName === categoryName;
     }).length;
   }
