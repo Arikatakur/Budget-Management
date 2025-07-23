@@ -1,15 +1,14 @@
-<div class="monthly-report space-y-6">
-  <div style="height: 400px;">
-    <canvas baseChart
-      [data]="chartData"
-      [options]="chartOptions"
-      [type]="'bar'">
+<div class="monthly-report-content glass-card">
+  <!-- Chart -->
+  <div class="chart-container">
+    <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="'bar'">
     </canvas>
   </div>
-  
+
+  <!-- Table -->
   <div class="table-wrapper">
     <h3>Monthly Transactions - {{ selectedMonth | date: 'MMMM yyyy' }}</h3>
-    <table class="report-table">
+    <table class="report-table" *ngIf="transactions.length > 0; else noTransactions">
       <thead>
         <tr>
           <th>Date</th>
@@ -24,24 +23,26 @@
           <td>{{ t.date | date: 'MMM d, yyyy' }}</td>
           <td>{{ t.description }}</td>
           <td>{{ getCategoryName(t.categoryId) }}</td>
-
           <td>
-            <span [ngClass]="{
-              'type-income': t.type === 'income',
-              'type-expense': t.type === 'expense'
-            }">
+            <span class="type-badge" [ngClass]="{
+                'type-income': t.type === 'income',
+                'type-expense': t.type === 'expense'
+              }">
               {{ t.type }}
             </span>
           </td>
           <td [ngClass]="t.type === 'income' ? 'text-green' : 'text-red'">
-            {{ t.type === 'income' ? '+' : '' }}${{ Math.abs(t.amount) | number:'1.0-0' }}
+            {{ t.type === 'income' ? '+' : '-' }}
+            {{ Math.abs(t.amount) | currency:'USD':'symbol':'1.2-2' }}
           </td>
         </tr>
       </tbody>
     </table>
 
-    <div *ngIf="transactions.length === 0" class="text-center">
-      <p>No transactions found for this month.</p>
-    </div>
+    <ng-template #noTransactions>
+      <div class="no-transactions-message">
+        <p>No transactions found for this month.</p>
+      </div>
+    </ng-template>
   </div>
 </div>
