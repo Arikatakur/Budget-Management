@@ -2,9 +2,9 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
-import { TransactionService } from '../../services/transaction.service';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../core/models/category.model';
+import { TransactionService } from '../../../services/transaction.service';
+import { CategoryService } from '../../../services/category.service';
+import { Category } from '../../../core/models/category.model';
 
 @Component({
   selector: 'app-category-report',

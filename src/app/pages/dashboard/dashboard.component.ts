@@ -1,76 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionService } from '../../services/transaction.service';
-import { UserService } from '../../services/user.service';
-import { NgChartsModule } from 'ng2-charts';
-import { ChartType, ChartData } from 'chart.js';
 import { CommonModule } from '@angular/common';
-import { CurrencyPipe } from '@angular/common';
+import { format } from 'date-fns';
+import { NgChartsModule } from 'ng2-charts';
+
+import { TransactionService } from '../../services/transaction.service';  // :contentReference[oaicite:4]{index=4}
+import { BalanceChartComponent } from './balance-chart/balance-chart.component';
+import { User } from '../../core/models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgChartsModule, CommonModule],
+  imports: [CommonModule, NgChartsModule, BalanceChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  currentMonthLabel = format(new Date(), 'MMMM yyyy');
+  summary = { income: 0, expenses: 0, balance: 0};
   userName: string = '';
   averageIncome: number = 0;
-  income = 0;
-  expenses = 0;
-  balance = 0;
 
-  public pieChartType: ChartType = 'pie';
-
-  public chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: <const>'bottom'
-      }
-    }
-  };
-
-  public pieChartData: ChartData<'pie'> | undefined;
-
-  constructor(
-    private transactionService: TransactionService,
-    private userService: UserService
-  ) { }
+  constructor(private txService: TransactionService,
+    private userService: UserService ) {}
 
   ngOnInit(): void {
-    this.transactionService.getSummary().subscribe((summary) => {
-      this.income = summary.income;
-      this.expenses = summary.expenses;
-      this.balance = summary.balance;
-      this.pieChartData = {
-        labels: ['Income', 'Expenses'],
-        datasets: [
-          {
-            data: [this.income, this.expenses],
-            backgroundColor: ['#36A2EB', '#FF6384'],
-            borderColor: ['#36A2EB', '#FF6384'],
-            borderWidth: 2,
-
-            hoverOffset: 0,
-            hoverBackgroundColor: ['#36A2EB', '#FF6384'],
-            hoverBorderColor: ['#36A2EB', '#FF6384']
-          }
-        ]
-      };
-    });
-
-
-
-    this.userService.getCurrentUser().subscribe({
+    this.userService.getCurrentUser()?.subscribe({
       next: (user) => {
         this.userName = user?.name || '';
         this.averageIncome = user?.averageIncome || 0;
       },
-      error: (err) => {
-        console.error('Failed to fetch user info', err);
+      error: (error) => {
+        console.error('Error fetching user data:', error);
       }
+    });
+
+    this.txService.getSummary().subscribe(data => {
+      this.summary = {
+        income: data.income,
+        expenses: data.expenses,
+        balance: data.balance
+      };
     });
   }
 }
-

@@ -3,10 +3,10 @@ import { ChartConfiguration } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 
-import { TransactionService } from '../../services/transaction.service';
-import { CategoryService } from '../../services/category.service';
-import { Transaction } from '../../core/models/transaction.model';
-import { Category } from '../../core/models/category.model';
+import { TransactionService } from '../../../services/transaction.service';
+import { CategoryService } from '../../../services/category.service';
+import { Transaction } from '../../../core/models/transaction.model';
+import { Category } from '../../../core/models/category.model';
 
 @Component({
   selector: 'app-monthly-report',

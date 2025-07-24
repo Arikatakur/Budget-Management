@@ -1,3 +1,4 @@
+/* container matches other pages: flex‑column with 20px gap and 115px top padding for the fixed header */
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -7,6 +8,7 @@
   padding-top: 115px;
 }
 
+/* universal “frosted glass” wrapper */
 .glass-card {
   padding: 2rem;
   background: rgba(0, 0, 0, 0.226);
@@ -16,87 +18,63 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   color: #ffffff;
+  text-align: center;
 }
 
-h2 {
+.glass-card .header-card {
   text-align: center;
+}
+
+/* header layout exactly like Reports & Transactions */
+.header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-card h2 {
   margin: 0;
   font-size: 2.5rem;
   font-weight: 700;
   color: #ffffff;
 }
 
-.summary-title,
-.chart-title {
-  font-size: 1.8rem;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+/* summary cards row */
+.summary-cards {
+  display: flex;
+  gap: 1rem;
+}
+
+/* individual stat cards */
+.card {
+  flex: 1;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.226);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 2rem;
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  color: #ffffff;
 }
 
-p {
-  font-size: 1.15rem;
-  margin: 0.8rem 0;
-  color: #e0e0e0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.card .label {
+  font-size: 0.9rem;
+  color: #555;
 }
 
-strong {
-  font-weight: 600;
-  color: #d0d0d0;
-}
-
-.income-value {
-  color: #28a745;
+.card .value {
+  font-size: 1.3rem;
   font-weight: bold;
+  margin-top: 0.5rem;
 }
 
-.expense-value {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.balance-value {
-  color: #00bfff;
-  font-weight: bold;
-}
-
-.chart-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-canvas {
-  max-width: 500px;
-  height: auto !important;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 1rem;
-    gap: 1rem;
-  }
-  .glass-card {
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-  }
-  h2 {
-    font-size: 1.8rem;
-  }
-  .summary-title,
-  .chart-title {
-    font-size: 1.5rem;
-  }
-  p {
-    font-size: 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
+/* grid for the two charts */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
