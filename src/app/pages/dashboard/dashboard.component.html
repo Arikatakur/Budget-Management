@@ -1,22 +1,20 @@
 <div class="dashboard-container">
-    <!-- Header -->
     <div class="glass-card header-card">
         <h2>Welcome, {{ userName }}</h2>
     </div>
 
-    <!-- Summary cards -->
     <div class="glass-card">
         <div class="summary-cards">
             <div class="card">
-                <p class="label">Income</p>
+                <p class="label">Income - current month</p>
                 <p class="value">${{ summary.income | number:'1.0-0' }}</p>
             </div>
             <div class="card">
-                <p class="label">Expenses</p>
+                <p class="label">Expenses - current month</p>
                 <p class="value">${{ summary.expenses | number:'1.0-0' }}</p>
             </div>
             <div class="card">
-                <p class="label">Balance</p>
+                <p class="label">Balance - current month</p>
                 <p class="value">${{ summary.balance | number:'1.0-0' }}</p>
             </div>
             <div class="card">
@@ -26,7 +24,6 @@
         </div>
     </div>
 
-    <!-- Charts -->
     <div class="glass-card">
         <div class="charts-grid">
             <app-balance-chart></app-balance-chart>

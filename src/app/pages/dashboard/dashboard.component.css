@@ -1,4 +1,3 @@
-/* container matches other pages: flex‑column with 20px gap and 115px top padding for the fixed header */
 .dashboard-container {
   display: flex;
   flex-direction: column;
@@ -8,7 +7,6 @@
   padding-top: 115px;
 }
 
-/* universal “frosted glass” wrapper */
 .glass-card {
   padding: 2rem;
   background: rgba(0, 0, 0, 0.226);
@@ -25,10 +23,9 @@
   text-align: center;
 }
 
-/* header layout exactly like Reports & Transactions */
 .header-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
@@ -41,13 +38,11 @@
   color: #ffffff;
 }
 
-/* summary cards row */
 .summary-cards {
   display: flex;
   gap: 1rem;
 }
 
-/* individual stat cards */
 .card {
   flex: 1;
   padding: 2rem;
@@ -62,17 +57,16 @@
 }
 
 .card .label {
-  font-size: 0.9rem;
-  color: #555;
+  font-size: 1.2rem;
+  color: #a7a7a7;
+  margin-top: 0;
 }
 
 .card .value {
   font-size: 1.3rem;
   font-weight: bold;
-  margin-top: 0.5rem;
 }
 
-/* grid for the two charts */
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
