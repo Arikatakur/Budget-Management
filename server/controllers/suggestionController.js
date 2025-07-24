@@ -1,63 +1,29 @@
-const AISuggestion = require('../models/AISuggestion');
-const axios = require('axios');
+const aiService = require('../services/aiService');
 
-exports.getSuggestions = async (req, res) => {
+exports.getSuggestions = async (req, res, next) => {
   try {
-    const suggestions = await AISuggestion.findAll({ where: { userId: req.query.userId } });
-    res.json(suggestions);
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ error: 'userId query param required' });
+
+    const rows = await aiService.list(userId);
+    res.json(rows);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    next(err); 
   }
 };
 
-exports.generateAndSaveSuggestion = async (req, res) => {
-  const { prompt, userId } = req.body;
 
-  if (!prompt) {
-    return res.status(400).json({ error: 'Prompt is required' });
-  }
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID is required' });
-  }
-
+exports.generateAndSaveSuggestion = async (req, res, next) => {
   try {
-    const response = await axios.post(
-      'https://api.deepseek.com/chat/completions',
-      {
-        model: 'deepseek-chat',
-        messages: [
-          { role: 'system', content: 'You are a friendly budget management assistant.' },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
-        }
-      }
-    );
+    const { userId, prompt } = req.body;
+    if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
+    if (!userId) return res.status(400).json({ error: 'User ID is required' });
 
-    
-    const aiResponseContent = response?.data?.choices?.[0]?.message?.content;
-
-    if (!aiResponseContent) {
-      console.error('Invalid or empty response from AI service:', response.data);
-      throw new Error('Failed to get a valid response from the AI service.');
-    }
-
-    const savedSuggestion = await AISuggestion.create({
-      prompt: prompt,
-      response: aiResponseContent,
-      userId: userId
-    });
-
-    res.status(201).json(savedSuggestion);
-
-  } catch (error) {
-    console.error('Error in generateAndSaveSuggestion:', error.response ? error.response.data : error.message);
-    res.status(500).json({ error: 'Failed to fetch and save AI suggestion.' });
+    const record = await aiService.generateAndSave(userId, prompt);
+    res.status(201).json(record);
+  } catch (err) {
+    const message =
+      err.response?.data?.error || err.message || 'Failed to fetch/save AI suggestion';
+    next(new Error(message));
   }
 };
